@@ -4,12 +4,15 @@ from django.contrib.auth.models import AbstractUser
 class Perfil(AbstractUser):
     nacimiento = models.DateField(null = True)
     foto = models.ImageField(upload_to = "foto_perfil", null = True, blank = True)
-    permitir_comentarar = models.BooleanField(default = True)
+    permitir_comentar = models.BooleanField(default = True)
 
 class Perfil_trabajador(Perfil):
     experiencia_laboral = models.CharField(max_length = 200,null = True)
     recomendaciones = models.IntegerField()
-    
+    #este campo remplaza la tabla
+    titulo = models.ManyToManyField(Titulo, on_delete = models.CASCADE)
+
+#esta clase desaparece
 class Titulo_trabajador(models.Model):
     trabajor = models.ForeignKey(Perfil_trabajador, on_delete = models.CASCADE)
     titulo = models.ForeignKey(Titulo, on_delete = models.CASCADE) 

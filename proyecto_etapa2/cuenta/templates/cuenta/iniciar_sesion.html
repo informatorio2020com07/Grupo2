@@ -1,0 +1,24 @@
+{% load static %}
+{% extends 'base.html' %}
+{%block titulo%}
+Iniciar Sesión
+{% endblock %}
+{%block link%}
+<link rel="stylesheet" href="{% static 'css/style.css'%}">
+<link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+{% endblock %}
+{%block contenido%}
+<div class="contenedor-form">
+    <div class="formulario">
+            <h2>Iniciar Sesión</h2>
+            <form action="#">
+                <input type="text" placeholder="Usuario" required>
+                <input type="password" placeholder="Contraseña" required>
+                <input type="submit" value="Iniciar Sesión">
+            </form>
+    </div>
+    <div class="reset-password">
+        <a href="#">Olvide mi Contraseña?</a>
+    </div>
+</div>
+{% endblock %}

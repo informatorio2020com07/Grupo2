@@ -1,0 +1,10 @@
+body{
+    font-size: 1.125rem;
+    font-weight: bold;
+    background-color: #858584;
+}
+.navbar{
+    background-color: #E2681F;   
+}
+
+.navbar-nav > li > .dropdown-menu { background-color: #E2681F; }

@@ -1,34 +1,23 @@
-{% load static %}
 {% extends 'base.html' %}
+{% load static %}
 {%block titulo%}
-Iniciar Sesión
-{% endblock %}
-{%block link%}
-<link rel="stylesheet" href="{% static 'css/style.css'%}">
-<link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+ Crear cuenta {{pagina}}
 {% endblock %}
 {%block contenido%}
 <div class="contenedor-form">
      <div class="formulario">
-            <h2>Crea tu Cuenta</h2>
-            <form action="#">
-                <input type="text" placeholder="Usuario" required>
-                
-                <input type="password" placeholder="Contraseña" required>
-                
-                <input type="email" placeholder="Correo Electronico" required>
-                
-                <input type="text" placeholder="Teléfono" required>
-
-                <input type="text" placeholder="Teléfono" required>
-                
-                <input type="submit" value="Registrarse">
-
-
+            <br>
+            {% ifequal pagina "cliente" %}
+                <h2>Crea tu Cuenta Cliente</h2>
+            {% else %}
+                <h2>Crea tu Cuenta Trabajador</h2>
+            {% endifequal %}
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form }}    
+            <input type="submit" value="Registrarse">
             </form>
         </div>
-    <div class="reset-password">
-        <a href="#">Olvide mi Contraseña?</a>
-    </div>
 </div>
+
 {% endblock %}

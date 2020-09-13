@@ -1,7 +1,8 @@
 {% load static %}
+
 <nav class="navbar navbar-expand-md navbar-light fixed-top navcolor" >
-    <a class="navbar-brand text-white" href="#">
-      <img src="images/logo de la pagina.jpg" width="30" height="30" class="d-inline-block align-top" alt="logo">
+    <a class="navbar-brand text-white" href="{% url 'index' %}">
+      <img src="{% static 'img/logo.jpg' %}" width="30" height="30" class="d-inline-block align-top" alt="logo">
       Buscando Ayuda
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,10 +11,24 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link text-white" href="#">Iniciar Sesión</a>
+          {% if request.user.is_authenticated %}
+          <a class="nav-link text-white" href="{% url 'cerrar_sesion' %}">Cerrar Sesión</a>
+          {% else %}
+          <a class="nav-link text-white" href="{% url 'iniciar_sesion' %}">Iniciar Sesión</a>
+          {% endif %}  
         </li>
         <li class="nav-item active">
-          <a class="nav-link text-white" href="#">Crear Cuenta</a>
+          {% if user.is_anonymous %}
+          <li class="nav-item dropdown active">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="crear_cuenta" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Crear Cuenta
+          </a>
+          <div class="dropdown-menu" aria-labelledby="crear_cuenta">
+            <a class="dropdown-item text-white" href="{% url 'nuevo_cliente' %}">Cliente</a>
+            <a class="dropdown-item text-white" href="{% url 'nuevo_trabajador' %}">Trabajador</a>
+          </div>
+        </li>  
+          {% endif %}
         </li>
         <li class="nav-item dropdown active">
           <a class="nav-link dropdown-toggle text-white" href="#" id="categorias" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -22,9 +37,21 @@
           <div class="dropdown-menu" aria-labelledby="categorias">
             <a class="dropdown-item text-white" href="#">Reparar Hogar</a>
             <a class="dropdown-item text-white" href="#">Arreglar Jardin</a>
-            <a class="dropdown-item text-white" href="#">Profesional a Domicilio</a>
+            <a class="dropdown-item text-white" href="#">Educación y Entrenamiento</a>
+            <a class="dropdown-item text-white" href="#">Profesional Medicos y Esteticos</a>
+            <a class="dropdown-item text-white" href="#">Otros </a>
           </div>
         </li>
       </ul>
+      {% if request.user.is_authenticated %}
+     <a class="navbar-brand text-white" href="{% url 'ver_perfil' request.user.id %}">
+        {% if request.user.foto %}
+          <img src="{{ request.user.foto.url }}" width="30" height="30" class="d-inline-block align-top" alt="logo">
+        {% endif %}
+      {{request.user}}
+    </a>
+    {%else%}
+        <img src="{% static 'img/pordefecto.jpg' %}" width="30" height="30" class="d-inline-block align-top" alt="logo">
+    {% endif %}  
     </div>
   </nav>

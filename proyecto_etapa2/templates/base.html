@@ -3,29 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-    <title>Trabajo a domicilio</title>
-   <!--link bootstrap-->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css '%}">
-   {%endblock%}
+    <title>
+    {% block titulo %}
+      Trabajo a domicilio
+    {% endblock %}
+    </title>
+    
+    {%block link%}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+    {%endblock%}
 </head>
 <body>
   <header>
-    {% include "navbar.html" %}  
+   {% include "navbar.html"%}
   </header>
+  <div class="container-fluid mr-auto ">
+        <div>
 
-  <div>
-    {%block contenido%}
-           
-    {%endblock%}
+              {%block contenido%}
+                     
+              {%endblock%}
+  
+        </div>
   </div>
 </body>
-{%block scripts%}
+  {%block scripts%}
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-{%endblock%}
+  {%endblock%}
 </html>

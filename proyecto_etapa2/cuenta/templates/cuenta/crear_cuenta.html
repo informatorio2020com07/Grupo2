@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block titulo%}
+ Crear cuenta {{pagina}}
+{% endblock %}
+{%block contenido%}
+<div class="contenedor-form">
+     <div class="formulario">
+            <br>
+            {% ifequal pagina "cliente" %}
+                <h2>Crea tu Cuenta Cliente</h2>
+            {% else %}
+                <h2>Crea tu Cuenta Trabajador</h2>
+            {% endifequal %}
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form }}    
+            <input type="submit" value="Registrarse">
+            </form>
+        </div>
+</div>
+
+{% endblock %}

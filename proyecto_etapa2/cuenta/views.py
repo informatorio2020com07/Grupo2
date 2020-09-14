@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
 from .models import Perfil,Perfil_trabajador
 from django.core.exceptions import ObjectDoesNotExist
+from bolsa.views import index
 
 # Create your views here.
 def nuevo_cliente(request):
@@ -68,6 +69,3 @@ def ver_perfil(request,id):
 
     return render(request, template, contexto)
 
-def index(request):
-    contexto= {"H":"Hola Mundo"}
-    return render(request,"cuenta/index.html",contexto)

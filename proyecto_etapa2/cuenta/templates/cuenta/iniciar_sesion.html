@@ -9,8 +9,8 @@ Iniciar Sesión
     <div class="formulario">
             <h2>Iniciar Sesión</h2>
             <form action="#">
-                <input type="text" placeholder="Usuario" required>
-                <input type="password" placeholder="Contraseña" required>
+                 {% csrf_token %}
+                {{ form }}    
                 <input type="submit" value="Iniciar Sesión">
             </form>
     </div>

@@ -14,4 +14,4 @@ class NuevoTrabajadorForm(UserCreationForm):
         model = Perfil_trabajador
         fields = ("first_name","last_name","username", "email", "password1",
          "password2", "nacimiento", "foto","telefono","localidad","provincia",
-         "experiencia_laboral","titulo")
+         "experiencia_laboral")

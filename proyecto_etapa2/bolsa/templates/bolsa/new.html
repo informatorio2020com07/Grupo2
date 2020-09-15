@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block headtitle %}
+    Oferta
+{% endblock %}
+
+{%block contenido%}
+<div class="row">
+    
+    <form class="col s12" method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+        <br>
+        <br>
+        <br>
+        <div class="row">
+          <div class="input-field col s24">
+            {{ form.titulo }}
+            <label for="id_titulo">Titulo</label>
+          </div>            
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            {{ form.descripcion }}
+            <label for="id_descripcion">Descripcion</label>
+          </div>
+        </div>
+
+         <div class="row">
+          <div class="input-field col s12">
+            {{ form.oferente }}
+            <label for="id_oferente">Oferente</label>
+          </div>
+        </div>
+
+         <div class="row">
+          <div class="input-field col s12">
+            {{ form.fecha_creado }}
+            <label for="id_oferente">Fecha creación</label>
+          </div>
+        </div>
+
+         <div class="row">
+          <div class="input-field col s12">
+            {{ form.fecha_modificado }}
+            <label for="id_oferente">Fecha modificado</label>
+          </div>
+        </div>
+        
+        <div class="input-field col s12">
+                {{form.categoria}}
+        <label>Categorias</label>
+        </div>
+
+      <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <button type="submit" class="btn-floating btn-large red">
+          <i class="large material-icons">add</i>
+        </button>
+      </div>            
+    </form>
+
+</div>
+ 
+{%endblock%}

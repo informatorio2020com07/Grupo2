@@ -3,7 +3,6 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 class Titulo(models.Model):
     titulo = models.CharField(max_length = 30)
-    matricula = models.CharField(max_length = 30,null = True)
     def __str__(self):
         return self.titulo
 
@@ -17,8 +16,12 @@ class Perfil(AbstractUser):
 class Perfil_trabajador(Perfil):
     experiencia_laboral = models.CharField(max_length = 200,null = True)
     recomendaciones = models.IntegerField()
-    titulo = models.ManyToManyField("Titulo", blank=True, related_name="trabajador_titulo")
-    
+
+class Matricula_Titulo(models.Model):
+    titulo = models.ForeignKey(Titulo, on_delete = models.CASCADE,default=None, related_name="titulo_matricula")
+    trabajador = models.ForeignKey(Perfil_trabajador,on_delete = models.CASCADE,default=None, related_name="trabajandor_matricula")
+    matricula = models.CharField(max_length = 30,null = True)    
+
 class Categoria(models.Model):
     nombre_cat = models.CharField(max_length = 30)
     descripcion = models.TextField()

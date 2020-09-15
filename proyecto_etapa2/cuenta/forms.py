@@ -7,11 +7,11 @@ class NuevoClienteForm(UserCreationForm):
     class Meta:
         model = Perfil
         fields = ("first_name","last_name","username", "email", "password1",
-         "password2", "nacimiento", "foto","telefono","localidad","provincia")
+         "password2", "nacimiento", "foto","telefono","localidad")
 
 class NuevoTrabajadorForm(UserCreationForm):
     class Meta:
         model = Perfil_trabajador
         fields = ("first_name","last_name","username", "email", "password1",
-         "password2", "nacimiento", "foto","telefono","localidad","provincia",
+         "password2", "nacimiento", "foto","telefono","localidad",
          "experiencia_laboral","titulo")

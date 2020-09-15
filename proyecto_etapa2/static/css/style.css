@@ -22,3 +22,21 @@ body{
 }
 
 .navbar-nav > li > .dropdown-menu { background-color: #69A3A5; }
+
+
+#contenedor_oferta{
+    outline: none;
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    margin: 0 0 20px 0;
+    background: rgba(0,0,0,.5);
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    box-sizing: border-box;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight:normal;
+    transition: all .5s ease;
+}

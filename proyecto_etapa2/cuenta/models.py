@@ -1,11 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from bolsa.models import Categoria
 # Create your models here.
-class Categoria(models.Model):
-    nombre_cat = models.CharField(max_length = 30)
-    descripcion = models.TextField()
+class Provincia(models.Model):
+    nombre_pro = models.CharField(max_length = 30)
     def __str__(self):
-        return self.nombre_cat
+        return self.nombre_pro
+
+class Localidad(models.Model):
+    ciudad = models.CharField(max_length = 30)
+    def __str__(self):
+        return self.ciudad
 
 class Titulo(models.Model):
     titulo = models.CharField(max_length = 30)
@@ -17,8 +22,8 @@ class Perfil(AbstractUser):
     nacimiento = models.DateField(null = True)
     foto = models.ImageField(upload_to = "foto_perfil", null = True, blank = True)
     telefono = models.CharField(max_length = 20)
-    localidad = models.CharField(max_length = 60)
-    provincia = models.CharField(max_length = 30)  
+    localidad = models.ForeignKey(Localidad, on_delete = models.SET_NULL,default=None, related_name="personas_por_ciudad")
+    provincia = models.ForeignKey(Provincia, on_delete = models.SET_NULL,default=None, related_name="personas_por_provincia")
     def __str__(self):
         return self.username
 

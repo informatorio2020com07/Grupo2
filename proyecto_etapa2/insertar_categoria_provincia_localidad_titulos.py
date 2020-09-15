@@ -50,7 +50,7 @@ query="INSERT INTO cuenta_titulo(titulo,categoria_id) values(?,?)"
 for argumento in lista:
     cursor.execute(query,argumento)
 
-#carga provincia
+#carga provincia por ahora solo chaco
 reg1=("Chaco",)
 query="INSERT INTO cuenta_provincia(provincia) values(?)"
 cursor.execute(query,reg1)

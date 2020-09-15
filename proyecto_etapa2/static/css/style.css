@@ -22,3 +22,8 @@ body{
 }
 
 .navbar-nav > li > .dropdown-menu { background-color: #69A3A5; }
+
+
+#contenedor_oferta{
+    background: rgba(0,0,0,.5);
+}

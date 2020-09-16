@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block headtitle %}
+    Oferta : {{oferta.titulo}}
+{% endblock %}
+
+{%block contenido%}
+            <div class="row">
+                <!-- empieza post previa -->
+                <div class="col s12">
+                  <div class="card">
+                    <div class="card-image">
+                      <img src="{{post.imagen.url}}">
+                    </div>
+                    <div class="card-content">
+                      <br>
+                      <br>
+                      <br>
+                      <span class="card-title black-text">{{oferta.titulo}}</span>
+                      <p class="flow-text">
+                        {{oferta.descripcion}}
+                      </p>
+                    </div>
+                    <div class="card-action">
+                     
+                      <p>{{oferta.fecha_creado}}</p>
+                    
+                      <br>
+                      <br>
+                      <span><h6>Creador: {{ oferta.oferente }}</h6></span>
+                      <br>
+                      <span><h6>Categoria: {{ oferta.categoria }}</h6></span>
+                    </div>
+                  </div>
+                </div>
+                <!-- fin post previa -->
+            </div>
+            
+            
+            <div class="divider"></div>
+
+            <div class="row">
+                <h6>mas....</h6>
+            </div>
+            <div class="row">
+              {% include 'bolsa/grid_oferta.html' %}
+            </div>
+{% endblock %}

@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from bolsa.models import Categoria
 # Create your models here.
 
 class Provincia(models.Model):
@@ -11,6 +10,12 @@ class Localidad(models.Model):
     provincia = models.ForeignKey(Provincia, on_delete = models.CASCADE,default=None, related_name="personas_provincia")
     def __str__(self):
         return self.localidad
+
+class Categoria(models.Model):
+    nombre_cat = models.CharField(max_length = 30)
+    descripcion = models.TextField()
+    def __str__(self):
+        return self.nombre_cat
 
 class Titulo(models.Model):
     titulo = models.CharField(max_length = 30)
@@ -28,7 +33,7 @@ class Perfil(AbstractUser):
 
 class Perfil_trabajador(Perfil):
     experiencia_laboral = models.CharField(max_length = 200,null = True)
-    recomendaciones = models.IntegerField(default=0)
+    recomendaciones = models.IntegerField(default=0, null = True)
     titulo = models.ManyToManyField(Titulo, blank=True, through="Matricula_Titulo", related_name="matricula_perfilT")
 
 class Matricula_Titulo(models.Model):

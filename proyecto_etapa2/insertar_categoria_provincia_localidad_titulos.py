@@ -11,7 +11,7 @@ reg3=("Educacion y Entrenamiento", "Personas dedicada a la educacion o entrenami
 reg4=("Profesional Medico y Estetico", "Profesionales dedicado al cuidado de la saludo y la estetica corporal")
 reg5=("Otro", "Todos las personas que no se sienta representadas por algunas de las anterior categorias")
 
-query="INSERT INTO bolsa_categoria(nombre_cat,descripcion) values(?,?)"
+query="INSERT INTO cuenta_categoria(nombre_cat,descripcion) values(?,?)"
 
 cursor.execute(query,reg1)
 cursor.execute(query,reg2)

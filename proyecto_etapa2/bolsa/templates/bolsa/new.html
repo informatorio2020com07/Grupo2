@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block headtitle %}
+    Oferta
+{% endblock %}
+
+{%block contenido%}
+<div class="contenedor-form">
+     <div class="formulario">
+        <h1 class="text-center">Oferta</h1>
+    <form class="col s12" method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+        <br>
+        <div class="row">
+          <label for="id_titulo">Titulo</label>
+          <div class="input-field col s24">
+            {{ form.titulo }}
+            
+          </div>            
+        </div>
+
+        <div class="row">
+          <label for="id_descripcion">Descripcion</label>
+          <div class="input-field col s12">
+            {{ form.descripcion }}
+            
+          </div>
+        </div>
+
+         <div class="row">
+          <label for="id_oferente">Imagen</label>
+          <div class="input-field col s12">
+            {{ form.imagen }}
+            
+          </div>
+        </div>
+        <label>Categorias</label>
+        <div class="input-field col s12">
+                {{form.categoria}}
+        
+        </div>
+        <br>
+      <input type="submit" value="Crear Oferta"> 
+    </form>
+    <br>
+</div>
+</div>
+ 
+{%endblock%}

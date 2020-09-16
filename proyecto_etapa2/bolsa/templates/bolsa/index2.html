@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block headtitle %}
+    Ofertas
+{% endblock %}
+
+{%block contenido%}
+
+    <div class="row">
+        {% include 'oferta/search_form.html' %}
+    </div>
+    <div class="row">
+        {% include 'oferta/grid_oferta.html' with ofertas=ofertas %}
+        
+    </div>
+ 
+{%endblock%}

@@ -45,13 +45,15 @@
       </ul>
       {% if request.user.is_authenticated %}
      <a class="navbar-brand text-white" href="{% url 'ver_perfil' request.user.id %}">
+        {{request.user}}
         {% if request.user.foto %}
           <img src="{{ request.user.foto.url }}" width="30" height="30" class="d-inline-block align-top" alt="logo">
-        {% endif %}
-      {{request.user}}
-    </a>
-    {%else%}
+        {%else%}
         <img src="{% static 'img/pordefecto.jpg' %}" width="30" height="30" class="d-inline-block align-top" alt="logo">
+        {% endif %}
+    </a>
+    {% else %}
+    <img src="{% static 'img/pordefecto.jpg' %}" width="30" height="30" class="d-inline-block align-top" alt="logo">
     {% endif %}  
     </div>
   </nav>

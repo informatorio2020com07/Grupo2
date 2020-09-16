@@ -9,6 +9,8 @@ class Provincia(models.Model):
 class Localidad(models.Model):
     localidad = models.CharField(max_length = 30)
     provincia = models.ForeignKey(Provincia, on_delete = models.CASCADE,default=None, related_name="personas_provincia")
+    def __str__(self):
+        return self.localidad
 
 class Titulo(models.Model):
     titulo = models.CharField(max_length = 30)

@@ -11,21 +11,8 @@
     <div class="container">  
       <div class="row">
         <!--comienza--> 
-        <div class="col-md-4">
-          <div id="contenedor_oferta" class="card mb-4 shadow-sm">
-            <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="{%static 'img/pared_rota.jpg'%}" alt="imagen de oferta">
-            <div class="card-body">
-              <p class="card-text text-white">variable de django con descripcion</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                    <a href="#" class="btn btn-sm btn-outline-secondary text-white text-white">Perfil</a>
-                    <a href="#" class="btn btn-sm btn-outline-secondary text-white">Oferta Completa</a>
-                </div>
-                <small class="text-white">duracion de la oferta</small>
-              </div>
-            </div>
-          </div>
-        </div>
+        {% include 'bolsa/lista_oferta.html' with ofertas=ofertas %}
+       
         <!--Termina-->
         <!--comienza-->
         <div class="col-md-4">

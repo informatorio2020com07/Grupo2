@@ -35,23 +35,25 @@
             Categorias
           </a>
           <div class="dropdown-menu" aria-labelledby="categorias">
-            <a class="dropdown-item text-white" href="#">Reparar Hogar</a>
-            <a class="dropdown-item text-white" href="#">Arreglar Jardin</a>
-            <a class="dropdown-item text-white" href="#">Educación y Entrenamiento</a>
-            <a class="dropdown-item text-white" href="#">Profesional Medicos y Esteticos</a>
-            <a class="dropdown-item text-white" href="#">Otros </a>
+            <a class="dropdown-item text-white" href="{% url 'show_categoria' 1 %}">Reparar Hogar</a>
+            <a class="dropdown-item text-white" href="{% url 'show_categoria' 2 %}">Arreglar Jardin</a>
+            <a class="dropdown-item text-white" href="{% url 'show_categoria' 3 %}">Educación y Entrenamiento</a>
+            <a class="dropdown-item text-white" href="{% url 'show_categoria' 4 %}">Profesional Medicos y Esteticos</a>
+            <a class="dropdown-item text-white" href="{% url 'show_categoria' 5 %}">Otros </a>
           </div>
         </li>
       </ul>
       {% if request.user.is_authenticated %}
      <a class="navbar-brand text-white" href="{% url 'ver_perfil' request.user.id %}">
+        {{request.user}}
         {% if request.user.foto %}
           <img src="{{ request.user.foto.url }}" width="30" height="30" class="d-inline-block align-top" alt="logo">
-        {% endif %}
-      {{request.user}}
-    </a>
-    {%else%}
+        {%else%}
         <img src="{% static 'img/pordefecto.jpg' %}" width="30" height="30" class="d-inline-block align-top" alt="logo">
+        {% endif %}
+    </a>
+    {% else %}
+    <img src="{% static 'img/pordefecto.jpg' %}" width="30" height="30" class="d-inline-block align-top" alt="logo">
     {% endif %}  
     </div>
   </nav>

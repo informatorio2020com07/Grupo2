@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block headtitle %}
+    Oferta : {{oferta.titulo}}
+{% endblock %}
+
+{%block contenido%}
+            <div class="row">
+                <!-- empieza Oferta previa -->
+                <div class="col s12">
+                  <div class="card">
+                    <div class="card-image">
+                      <img src="{{oferta.imagen.url}}">
+                    </div>
+                    <div class="card-content">
+                      <br>
+                      <br>
+                      <br>
+                      <span class="card-title black-text">{{oferta.titulo}}</span>
+                      <p class="flow-text">
+                        {{oferta.descripcion}}
+                      </p>
+                    </div>
+                    <div class="card-action">
+                     
+                      <p>{{oferta.fecha_creado}}</p>
+                    
+                      <br>
+                      <br>
+                      <span><h6>Creador: {{ oferta.oferente }}</h6></span>
+                      <br>
+                      <span><h6>Categoria: {{ oferta.categoria }}</h6></span>
+                    </div>
+                  </div>
+                </div>
+                <!-- fin Oferta previa -->
+            </div>
+            
+            
+            <div class="divider"></div>
+
+{% endblock %}

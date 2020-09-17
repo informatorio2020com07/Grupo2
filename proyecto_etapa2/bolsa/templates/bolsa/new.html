@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block headtitle %}
+    Oferta
+{% endblock %}
+
+{%block contenido%}
+<div class="contenedor-form">
+     <div class="formulario">
+        <h1 class="text-center">Oferta</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <br>
+          <label for="id_titulo">Titulo</label>
+            {{ form.titulo }}
+
+          <label for="id_descripcion">Descripcion</label>
+            {{ form.descripcion }}
+
+
+          <label for="id_oferente">Imagen</label>
+            {{ form.imagen }}
+
+        <label>Categorias</label>
+                {{form.categoria}}
+        
+        <label>Fecha de Caducidad</label>
+                {{form.fecha_caducacion}}
+        <br>
+      <input type="submit" value="Crear Oferta"> 
+    </form>
+    <br>
+</div>
+</div>
+ 
+{%endblock%}

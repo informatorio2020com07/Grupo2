@@ -85,6 +85,20 @@ DATABASES = {
     }
 }
 
+'''pymysql.version_info = 1,4,0
+pymysql.install_as_MySQLdb()
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': "Ofertalaboral",
+        "USER":"root",
+        "PASSWORD": "root",
+        "HOST":"127.0.0.1",
+        "PORT":"3306"
+    }
+}
+'''
+
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 

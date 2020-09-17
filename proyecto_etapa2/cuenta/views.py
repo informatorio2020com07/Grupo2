@@ -1,9 +1,9 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import login,logout,authenticate
-from .forms import NuevoClienteForm,NuevoTrabajadorForm
+from .forms import NuevoUsuarioForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
-from .models import Perfil,Perfil_trabajador
+from .models import Perfil
 from django.core.exceptions import ObjectDoesNotExist
 from bolsa.views import index
 
@@ -12,11 +12,15 @@ def nuevo_cliente(request):
     if request.user.is_authenticated:
         return redirect("index")
     else:
-        form = NuevoClienteForm()
+        form = NuevoUsuarioForm()
         if request.method == "POST":
-            form = NuevoClienteForm(request.POST, request.FILES)
+            form = NuevoUsuarioForm(request.POST, request.FILES)
+            print(form)
             if form.is_valid():
-                user = form.save()
+                print("entro aca")
+                user = form.save(commit=False)
+                user.tipo_usuario="cliente"
+                user.save()
                 if user is not None:
                     login(request,user)
                     return redirect("index")
@@ -26,11 +30,14 @@ def nuevo_trabajador(request):
     if request.user.is_authenticated:
         return redirect("index")
     else:
-        form = NuevoTrabajadorForm()
+        form = NuevoUsuarioForm()
         if request.method == "POST":
-            form = NuevoTrabajadorForm(request.POST, request.FILES)
+            form = NuevoUsuarioForm(request.POST, request.FILES)
+            print(form)
             if form.is_valid():
-                user = form.save()
+                user = form.save(commit=False)
+                user.tipo_usuario="trabajador"
+                user.save()
                 if user is not None:
                     login(request,user)
                     return redirect("index")
@@ -56,16 +63,11 @@ def cerrar_sesion(request):
     return redirect("index")
 
 @login_required
-def ver_perfil(request,id):
-    try:
-        perfil = Perfil_trabajador.objects.get(pk=id)
-    except ObjectDoesNotExist:
-        perfil = Perfil.objects.get(pk=id)
-    print(perfil.first_name)   
-    contexto = {
-        "perfil":perfil,
-        }
-    template = "cuenta/perfil.html"
+def ver_perfil(request,id):   
+    perfil = Perfil.objects.get(pk=id)
+    contexto = {"perfil":perfil,}
+    return render(request, "cuenta/perfil.html", contexto)
 
-    return render(request, template, contexto)
+
+
 

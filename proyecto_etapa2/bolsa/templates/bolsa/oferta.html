@@ -6,11 +6,11 @@
 
 {%block contenido%}
             <div class="row">
-                <!-- empieza post previa -->
+                <!-- empieza Oferta previa -->
                 <div class="col s12">
                   <div class="card">
                     <div class="card-image">
-                      <img src="{{post.imagen.url}}">
+                      <img src="{{oferta.imagen.url}}">
                     </div>
                     <div class="card-content">
                       <br>
@@ -33,16 +33,10 @@
                     </div>
                   </div>
                 </div>
-                <!-- fin post previa -->
+                <!-- fin Oferta previa -->
             </div>
             
             
             <div class="divider"></div>
 
-            <div class="row">
-                <h6>mas....</h6>
-            </div>
-            <div class="row">
-              {% include 'bolsa/grid_oferta.html' %}
-            </div>
 {% endblock %}

@@ -1,0 +1,22 @@
+
+{% for oferta in ofertas %}
+            
+             <div class="col-md-4">
+          <div id="contenedor_oferta" class="card mb-4 shadow-sm">
+            <span class="text-center">{{oferta.titulo}}</span>
+            <img class="bd-placeholder-img card-img-top" width="100%" height="225" src=  
+            "{{oferta.imagen.url}}" alt="imagen de oferta">
+            <div class="card-body">
+              <p class="card-text text-white">{{oferta.descripcion | truncatechars:40}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    <a href="{% url 'ver_perfil' oferta.oferente.id %}" class="btn btn-sm btn-outline-secondary text-white text-white">Perfil</a>
+                    <a href="{% url 'oferta' oferta.id %}" class="btn btn-sm btn-outline-secondary text-white">Oferta Completa</a>
+                </div>
+                <small class="text-white">{{oferta.fecha_caducacion}} </small>
+              </div>
+            </div>
+          </div>
+        </div> 
+
+{% endfor %}                

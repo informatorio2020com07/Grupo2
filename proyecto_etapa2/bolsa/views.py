@@ -6,28 +6,29 @@ from django.contrib.auth.decorators import login_required
 
 
 def index(request):
-    contexto = {}
+    ofertas=Oferta.objects.all()  
+    contexto = {"ofertas" : ofertas}
     return render(request, "bolsa/index.html",contexto)
 
-#@login_required
+@login_required
 def new_oferta(request):
-    if request.method == "POST":
-        form= OfertaForm(request.POST,request.FILES)
-        print(form)
-        lista=request.user.titulo
-        categorias=Categorias.Object.filter(titulo__in=lista)
-        if form.is_valid():
-            oferta=form.save(commit=False)
-            oferta.oferente = request.user
-            print("llego")
-            oferta.save()
-            return redirect("oferta", oferta.id)
-        else:
-            contexto={"form":form,}
-            return render(request, "bolsa/new.html",contexto)
-    form = OfertaForm()
-    contexto={"form":form,}
-    return render(request, "bolsa/new.html",contexto)
+    if request.user.tipo_usuario=="trabajador":
+        if request.method == "POST":
+            form= OfertaForm(request.POST,request.FILES)        
+            if form.is_valid():
+                oferta=form.save(commit=False)
+                oferta.oferente = request.user
+                oferta.save()
+                return redirect("oferta", oferta.id)
+            else:
+                contexto={"form":form,}
+                return render(request, "bolsa/new.html",contexto)
+        #Metodo Get        
+        form = OfertaForm()
+        contexto={"form":form,}
+        return render(request, "bolsa/new.html",contexto)
+    else:
+        return redirect("index")
 
 def show_oferta(request,id):
     oferta=Oferta.objects.get(pk=id)
@@ -42,4 +43,3 @@ def show_categoria(request,id):
     oferta = Oferta.objects.filter(categoria=cat)
     contexto = {"oferta":oferta,}
     return render(request, "bolsa/index.html",contexto)
-    

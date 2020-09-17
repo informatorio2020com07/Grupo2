@@ -13,5 +13,9 @@ class NuevoTrabajadorForm(UserCreationForm):
     class Meta:
         model = Perfil_trabajador
         fields = ("first_name","last_name","username", "email", "password1",
-         "password2", "nacimiento", "foto","telefono","localidad",
-         "experiencia_laboral","titulo")
+         "password2", "nacimiento", "foto","telefono","experiencia_laboral","localidad",
+         "titulo")
+
+        def __init__(self, *args, **kwargs):
+            super(NuevoTrabajadorForm, self).__init__(*args, **kwargs)
+            self.fields["titulo"].widget.attrs.update({'class' : 'form-check-input','placeholder' : '',"id":"defaultUnchecked", 'type' : 'checkbox'})

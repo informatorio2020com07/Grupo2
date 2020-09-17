@@ -9,12 +9,90 @@
             <br>
             {% ifequal pagina "cliente" %}
                 <h2>Crea tu Cuenta Cliente</h2>
+
             {% else %}
                 <h2>Crea tu Cuenta Trabajador</h2>
             {% endifequal %}
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form }}    
+                <label class="active" for="id_lastname">Nombre de Usuario</label>
+                {{ form.username }}
+                <p>
+                  {{ form.username.errors }}
+                </p>
+                 <label class="active" for="id_firstname">Nombre</label>
+                {{ form.first_name }}
+              <div>
+                <p>
+                  {{ form.firs_name.errors }}
+                </p>
+              </div>               
+                <label class="active" for="id_lastname">Apellido</label>
+                {{ form.last_name }}
+              <div>
+                <p>
+                  {{ form.last_name.errors }}
+                </p>
+              </div>                
+                <label class="active" for="id_email">Email</label>
+                {{ form.email }}
+              <div>
+                <p>
+                  {{ form.email.errors }}
+                </p>
+              </div>                
+                <label class="active" for="id_password1">Contraseña</label>
+                {{ form.password1 }}
+              <div>
+                <p>
+                  {{ form.password1.errors }}
+                </p>
+              </div>                
+                <label class="active" for="id_password2">Repetir Contraseña</label>
+                {{ form.password2 }}
+              <div>
+                <p>
+                  {{ form.password2.errors }}
+                </p>
+              </div>
+                <label class="active" for="id_nacimeinto">Fecha de Nacimiento</label>
+                {{ form.nacimiento }}
+              <div>
+                <p>
+                  {{ form.nacimiento.errors }}
+                </p>
+              </div>              
+                  <label for="id_foto">foto</label>
+                  {{form.foto}}
+              <div>
+                <p>
+                  {{ form.foto.errors }}
+                </p>
+            </div>
+                  <label for="id_telefono">Telefono</label>
+                    {{form.telefono}}
+              <div>
+                <p>
+                  {{ form.telefono.errors }}
+                </p>
+            </div>
+                  <label for="id_experiencia_laboral">Experiencia Laboral</label>
+                    {{form.experiencia_laboral}}
+              <div>
+                <p>
+                  {{ form.experiencia_laboral.errors }}
+                </p>
+            </div>
+            <label for="id_localidad">Localidad</label>
+            {{form.localidad}}
+              <div>
+                <p>
+                  {{ form.localidad.errors }}
+                </p>
+            </div>
+             <input type="checkbox">{{ form.titulo }}
+
+
             <input type="submit" value="Registrarse">
             </form>
         </div>

@@ -13,14 +13,17 @@ def index(request):
 def new_oferta(request):
     if request.method == "POST":
         form= OfertaForm(request.POST,request.FILES)
+        print(form)
+        lista=request.user.titulo
+        categorias=Categorias.Object.filter(titulo__in=lista)
         if form.is_valid():
             oferta=form.save(commit=False)
-            oferta.usuario = request.user
+            oferta.oferente = request.user
+            print("llego")
             oferta.save()
             return redirect("oferta", oferta.id)
         else:
-            contexto={"form":form,
-            "categorias":categoria}
+            contexto={"form":form,}
             return render(request, "bolsa/new.html",contexto)
     form = OfertaForm()
     contexto={"form":form,}
@@ -29,9 +32,14 @@ def new_oferta(request):
 def show_oferta(request,id):
     oferta=Oferta.objects.get(pk=id)
     usuario=oferta.oferente
-    #mas_oferta = Oferta.objects.filter(usuario_id=usuario)
     contexto = {
-    #"mas_post":mas_oferta,
     "oferta":oferta,}
     return render(request,"bolsa/oferta.html",contexto)
+
+def show_categoria(request,id):
+    categorias = Categoria.objects.all()
+    cat=Categoria.objects.get(pk=id)
+    oferta = Oferta.objects.filter(categoria=cat)
+    contexto = {"oferta":oferta,}
+    return render(request, "bolsa/index.html",contexto)
     

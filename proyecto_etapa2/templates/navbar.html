@@ -35,11 +35,11 @@
             Categorias
           </a>
           <div class="dropdown-menu" aria-labelledby="categorias">
-            <a class="dropdown-item text-white" href="#">Reparar Hogar</a>
-            <a class="dropdown-item text-white" href="#">Arreglar Jardin</a>
-            <a class="dropdown-item text-white" href="#">Educación y Entrenamiento</a>
-            <a class="dropdown-item text-white" href="#">Profesional Medicos y Esteticos</a>
-            <a class="dropdown-item text-white" href="#">Otros </a>
+            <a class="dropdown-item text-white" href="{% url 'show_categoria' 1 %}">Reparar Hogar</a>
+            <a class="dropdown-item text-white" href="{% url 'show_categoria' 2 %}">Arreglar Jardin</a>
+            <a class="dropdown-item text-white" href="{% url 'show_categoria' 3 %}">Educación y Entrenamiento</a>
+            <a class="dropdown-item text-white" href="{% url 'show_categoria' 4 %}">Profesional Medicos y Esteticos</a>
+            <a class="dropdown-item text-white" href="{% url 'show_categoria' 5 %}">Otros </a>
           </div>
         </li>
       </ul>

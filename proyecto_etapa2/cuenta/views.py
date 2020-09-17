@@ -30,7 +30,9 @@ def nuevo_trabajador(request):
         if request.method == "POST":
             form = NuevoTrabajadorForm(request.POST, request.FILES)
             if form.is_valid():
-                user = form.save()
+                user = form.save(commit=false)
+                user.tipo_usuario="trabajador"
+                user.save()
                 if user is not None:
                     login(request,user)
                     return redirect("index")
@@ -65,7 +67,8 @@ def ver_perfil(request,id):
     contexto = {
         "perfil":perfil,
         }
-    template = "cuenta/perfil.html"
+    return render(request, "cuenta/perfil.html", contexto)
 
-    return render(request, template, contexto)
+
+
 

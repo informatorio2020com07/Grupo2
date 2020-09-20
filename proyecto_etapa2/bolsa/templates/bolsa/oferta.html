@@ -13,8 +13,8 @@
                       <img src="{{oferta.imagen.url}}">
                     </div>
                     <div class="card-content">
-                      <br>
-                      <br>
+                      
+                      
                       <br>
                       <span class="card-title black-text">{{oferta.titulo}}</span>
                       <p class="flow-text">
@@ -24,12 +24,15 @@
                     <div class="card-action">
                      
                       <p>{{oferta.fecha_creado}}</p>
-                    
-                      <br>
-                      <br>
+                                                                
                       <span><h6>Creador: {{ oferta.oferente }}</h6></span>
                       <br>
                       <span><h6>Categoria: {{ oferta.categoria }}</h6></span>
+                    </div>
+                    <div>
+                      <a href="{% url 'editar_oferta' oferta.id %}" class="btn btn-sm btn-outline-secondary text-blue text-green">Editar Oferta</a>
+
+                      <a href="{% url 'borrar_oferta' oferta.id %}" class="btn btn-sm btn-outline-secondary text-blue text-green">Borrar Oferta</a>
                     </div>
                   </div>
                 </div>

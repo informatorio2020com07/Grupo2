@@ -43,3 +43,37 @@ def show_categoria(request,id):
     oferta = Oferta.objects.filter(categoria=cat)
     contexto = {"oferta":oferta,}
     return render(request, "bolsa/index.html",contexto)
+
+def borrar_oferta(request,id):
+    oferta=Oferta.objects.get(pk=id)
+    print(oferta)
+    print(request.method)
+    if request.method == "POST":
+        print("es post")
+        if oferta.oferente == request.user:
+            oferta.delete()
+            print(request.user,"gggggggggggggggggggggggggggggggggggggggggggggggg")
+            #return redirect("show_oferta",request.user.id)
+            return redirect("index")            
+    else:
+        print("no es post es get")
+        oferta.delete()
+        return redirect("index")
+
+def editar_oferta(request, id):
+    oferta = Oferta.objects.get(pk = id)
+
+    if request.method == "GET":
+        form = OfertaForm(instance = oferta)
+        contexto = {
+            "form" : form
+        }
+        return render(request, "bolsa/new.html", contexto)
+
+    elif request.method == "POST":
+        form = OfertaForm(request.POST, instance = oferta)
+        if form.is_valid():
+            ofer = form.save()
+            return redirect("oferta", ofer.id)
+
+

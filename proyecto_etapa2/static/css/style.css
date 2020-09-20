@@ -40,3 +40,8 @@ body{
     font-weight:normal;
     transition: all .5s ease;
 }
+
+textarea {
+    overflow: scroll;
+    resize: none;
+}

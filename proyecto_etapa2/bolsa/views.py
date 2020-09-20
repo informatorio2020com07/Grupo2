@@ -38,8 +38,9 @@ def show_oferta(request,id):
     return render(request,"bolsa/oferta.html",contexto)
 
 def show_categoria(request,id):
-    categorias = Categoria.objects.all()
     cat=Categoria.objects.get(pk=id)
-    oferta = Oferta.objects.filter(categoria=cat)
-    contexto = {"oferta":oferta,}
+    print(cat.id)
+    ofertas = Oferta.objects.filter(categoria=cat.id)
+    print(ofertas)
+    contexto = {"ofertas":ofertas,}
     return render(request, "bolsa/index.html",contexto)

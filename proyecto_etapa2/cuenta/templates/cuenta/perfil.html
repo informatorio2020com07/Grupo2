@@ -6,9 +6,12 @@
 {% block contenido%}
 <br>
 <br>
-    <h2>{{perfil.first_name}}</h2>
-    <h2>{{perfil.last_name}}</h2>
-    <h2>{{perfil.username}}</h2>
-    <h1>Perfil</h1>
+    <h1 class="text-white">Perfil</h1>
+    <h2 class="text-white">Nombre: {{perfil.first_name}}</h2>
+    <h2 class="text-white">Apellido: {{perfil.last_name}}</h2>
+    <h2 class="text-white">Telefono: {{perfil.telefono}}</h2>
+    <h2 class="text-white">Usuario: {{perfil.username}}</h2>
+    <h2 class="text-white">Localidad : {{perfil.localidad}}</h2>
     <a href="{% url 'new_oferta' %}">Crear</a>
+    <a href="{% url 'editar_perfil' perfil.id %}">Editar Perfil</a>
 {% endblock %}

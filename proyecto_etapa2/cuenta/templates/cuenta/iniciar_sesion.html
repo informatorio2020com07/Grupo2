@@ -10,7 +10,18 @@ Iniciar Sesión
             <h2>Iniciar Sesión</h2>
             <form method="POST" action="#">
                  {% csrf_token %}
-                {{ form }}    
+                <label class="active" for="id_lastname">Nombre de Usuario</label>
+      {{ form.username }}
+      <p>
+        {{ form.username.errors }}
+      </p>
+       <label class="active" for="id_password">Contraseña</label>
+      {{ form.password }}
+      <div>
+        <p>
+          {{ form.password.errors }}
+        </p>
+      </div>                
                 <input type="submit" value="Iniciar Sesión">
             </form>
     </div>

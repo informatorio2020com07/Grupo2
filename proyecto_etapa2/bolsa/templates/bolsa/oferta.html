@@ -5,38 +5,31 @@
 {% endblock %}
 
 {%block contenido%}
-            <div class="row">
-                <!-- empieza Oferta previa -->
-                <div class="col s12">
-                  <div class="card">
-                    <div class="card-image">
-                      <img src="{{oferta.imagen.url}}">
-                    </div>
-                    <div class="card-content">
-                      <br>
-                      <br>
-                      <br>
-                      <span class="card-title black-text">{{oferta.titulo}}</span>
-                      <p class="flow-text">
-                        {{oferta.descripcion}}
-                      </p>
-                    </div>
-                    <div class="card-action">
-                     
-                      <p>{{oferta.fecha_creado}}</p>
-                    
-                      <br>
-                      <br>
-                      <span><h6>Creador: {{ oferta.oferente }}</h6></span>
-                      <br>
-                      <span><h6>Categoria: {{ oferta.categoria }}</h6></span>
-                    </div>
-                  </div>
+<div class="row justify-content-center">
+        <div class="col-xs-12 col-md-4 col-lg-4 text-center">
+          <div id="contenedor_oferta" class="card mb-4 lg-8 shadow-sm">
+            <span><h2>{{oferta.titulo}}</h2></span>
+            <p class="text-left">Creada el : {{oferta.fecha_creado}}</p>
+            <img class="rounded img-fluid" width="80%" height="80%" src=  
+            "{{oferta.imagen.url}}" alt="imagen de oferta">
+            <div class="card-body">
+              <h4>Oferta</h4>
+              <p id="descripcion_oferta" class="text-left card-text text-white">{{oferta.descripcion}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    <a href="{% url 'ver_perfil' oferta.oferente.id %}" class="btn btn-sm btn-outline-secondary text-white text-white">Perfil</a>
                 </div>
-                <!-- fin Oferta previa -->
+                <small class="text-white">La oferta termina: {{oferta.fecha_caducacion}} </small>
+                <a class ="text-white" href="{% url 'ver_perfil' oferta.oferente.id %}">
+                <span><h6>Creador: {{ oferta.oferente }}</h6></span>
+                </a>
+                <br>
+                <a class ="text-white" href="{% url 'show_categoria' oferta.categoria.id %}">
+                <span><h6>Categoria: {{ oferta.categoria }}</h6></span>
+                </a>
+              </div>
             </div>
-            
-            
-            <div class="divider"></div>
-
+          </div>
+        </div> 
+</div>           
 {% endblock %}

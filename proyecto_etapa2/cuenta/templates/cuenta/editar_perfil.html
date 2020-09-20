@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block titulo%}
+Editar Perfil
+{% endblock %}
+{%block contenido%}
+<div class="contenedor-form">
+    <br>
+    <div class="formulario">
+            <h2>Editar Perfil</h2>
+            <form method="POST" enctype="multipart/form-data">
+                 {% csrf_token %}  
+      <label class="active" for="id_email">Email</label>
+      {{ form.email }}
+      <div>
+        <p>
+          {{ form.email.errors }}
+        </p>
+      </div>                            
+      <label for="id_foto">foto</label>
+      {{form.foto}}
+      <div>
+        <p>
+          {{ form.foto.errors }}
+        </p>
+      </div>
+      <label for="id_telefono">Telefono</label>
+      {{form.telefono}}
+      <div>
+        <p>
+          {{ form.telefono.errors }}
+        </p>
+      </div>
+      <label for="id_localidad">Localidad</label>
+      {{form.localidad}}
+      <div>
+        <p>
+          {{ form.localidad.errors }}
+        </p>
+      </div>
+      {% ifequal request.user.tipo_usuario "trabajador" %} 
+        <label for="id_experiencia_laboral">Experiencia Laboral</label>
+        {{form.experiencia_laboral}}
+        <div>
+          <p>
+            {{ form.experiencia_laboral.errors }}
+          </p>
+        </div>
+        <label for="id_experiencia_laboral">Oficio o Titulo</label>
+        {{ form.titulo }}
+          <div>
+          <p>
+            {{ form.titulo.errors }}
+          </p>
+        </div>
+      {% endifequal %}
+                <input type="submit" value="Editar">
+            </form>
+    </div>
+    <div class="reset-password">
+        <a href="#">Editar contraseña</a>
+    </div>
+</div>
+</div>
+{% endblock %}

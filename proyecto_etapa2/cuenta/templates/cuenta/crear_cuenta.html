@@ -23,7 +23,7 @@
       {{ form.dni }}
       <div>
         <p>
-          {{ form.firs_name.errors }}
+          {{ form.dni.errors }}
         </p>
       </div>
       <label class="active" for="id_firstname">Nombre</label>
@@ -89,25 +89,11 @@
           {{ form.localidad.errors }}
         </p>
       </div>
-      {% ifequal pagina "trabajador" %} 
-        <label for="id_experiencia_laboral">Experiencia Laboral</label>
-        {{form.experiencia_laboral}}
-        <div>
-          <p>
-            {{ form.experiencia_laboral.errors }}
-          </p>
-        </div>
-        <label for="id_experiencia_laboral">Oficio o Titulo</label>
-        {{ form.titulo }}
-          <div>
-          <p>
-            {{ form.titulo.errors }}
-          </p>
-        </div>
-      {% endifequal %}
       <input type="submit" value="Registrarse">
     </form>
   </div>
 </div>
-
 {% endblock %}
+{%block scripts%}
+<script src="{% static 'js/crear_cuenta.js'%}"></script>
+{%endblock%}

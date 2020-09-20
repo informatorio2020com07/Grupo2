@@ -46,11 +46,21 @@ Editar Perfil
             {{ form.experiencia_laboral.errors }}
           </p>
         </div>
-        <label for="id_experiencia_laboral">Oficio o Titulo</label>
+         <label for="id_categoria">{{categoria}}</label>
+          <div class="row">
+        <label id="label_titulo" for="id_titulo">Oficio o Titulo</label>
         {{ form.titulo }}
+          </div>
           <div>
           <p>
             {{ form.titulo.errors }}
+          </p>
+        </div>
+         <label id="label_matricula" for="id_titulo">Matricula</label>
+        {{ form.matricula }}
+          <div>
+          <p>
+            {{ form.matricula.errors }}
           </p>
         </div>
       {% endifequal %}

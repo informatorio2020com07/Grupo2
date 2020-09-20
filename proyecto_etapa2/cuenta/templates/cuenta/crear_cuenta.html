@@ -89,11 +89,30 @@
           {{ form.localidad.errors }}
         </p>
       </div>
+      {% ifequal pagina "trabajador" %}
+        <p>Pasa por la editar perfil y carga tus habilidades</p>
+      <label for="id_categoria">Categoria</label>
+      {{form.categoria}}
+      <div>
+        <p>
+          {{ form.categoria.errors }}
+        </p>
+      </div>
+      {% endifequal %}
       <input type="submit" value="Registrarse">
     </form>
   </div>
 </div>
+<div class="row">
+  <div id ="detalle" class="contenedor-form">
+  {% for categoria in categorias %}
+            <div>
+              <h4>{{categoria.nombre_cat}}</h4>
+          <p>
+            {{categoria.descripcion}}
+          </p>
+        </div>
+          {% endfor %}
+  </div>
+</div>
 {% endblock %}
-{%block scripts%}
-<script src="{% static 'js/crear_cuenta.js'%}"></script>
-{%endblock%}

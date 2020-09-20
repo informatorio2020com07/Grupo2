@@ -16,18 +16,20 @@ class NuevoUsuarioForm(UserCreationForm,forms.Form):
     nacimiento=forms.DateField(widget=forms.TextInput(attrs={"placeholder":"01/01/1000"}))
     foto=forms.ImageField()
     telefono= forms.CharField(help_text='Numero de Contacto')
+    categoria=forms.ModelChoiceField(queryset=Categoria.objects.all(),initial="1")
     class Meta:
         model = Perfil
         fields = ("first_name","last_name","username","dni", "email", "password1",
-         "password2", "nacimiento", "foto","telefono","localidad")
+         "password2", "nacimiento", "foto","telefono","localidad","categoria")
 
 class UpdateUsuarioForm(UserChangeForm):
     experiencia_laboral=forms.CharField(widget=forms.Textarea(attrs={"placeholder":"Tu forma de trabajar en 200 caracteres"}))
-    categoria=forms.ModelChoiceField(queryset=Categoria.objects.all(),initial="1")
-    titulo = forms.ModelChoiceField(queryset=Titulo.objects.all(),
-        widget=forms.CheckboxSelectMultiple,required = False)
+    titulo = forms.ModelChoiceField(queryset = Titulo.objects.filter(categoria_id=1),widget=forms.CheckboxSelectMultiple,required = False)
     matricula=forms.CharField()
     class Meta:
         model = Perfil
         fields = ("email","foto","telefono","experiencia_laboral","localidad",
-        "categoria","titulo","matricula")
+            "titulo","matricula")
+    #def __init__(self,instance, *args, **kwargs):
+        #titulos=Matricula_Titulo.objects.filter(trabajador_id=instance.id)
+        #self.fields["titulo"].queryset = Titulo.objects.filter(titulo__icontains = titulos )

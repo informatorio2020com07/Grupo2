@@ -3,7 +3,7 @@ from django.contrib.auth import login,logout,authenticate
 from .forms import NuevoUsuarioForm, UpdateUsuarioForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-from .models import Perfil
+from .models import Perfil,Titulo,Categoria,Matricula_Titulo
 from bolsa.views import index
 
 # Create your views here.
@@ -30,6 +30,7 @@ def nuevo_trabajador(request):
         return redirect("index")
     else:
         form = NuevoUsuarioForm()
+        categorias=Categoria.objects.all()
         if request.method == "POST":
             form = NuevoUsuarioForm(request.POST, request.FILES)
             a=request.POST.getlist("titulo")
@@ -38,10 +39,15 @@ def nuevo_trabajador(request):
                 user = form.save(commit=False)
                 user.tipo_usuario="trabajador"
                 user.save()
+                datos=form.cleaned_data
+                cat=datos['categoria']
+                titulos=Titulo.objects.filter(categoria_id=cat.id)
+                for titulo in titulos:
+                    matricula_titulo=Matricula_Titulo.objects.create(trabajador_id=user.id,titulo_id=titulo.id,matricula="")
                 if user is not None:
                     login(request,user)
                     return redirect("index")
-        return render(request, "cuenta/crear_cuenta.html",{"form":form,"pagina":"trabajador"})
+        return render(request, "cuenta/crear_cuenta.html",{"form":form,"pagina":"trabajador","categorias":categorias})
 
 
 def iniciar_sesion(request):
@@ -76,7 +82,6 @@ def editar_perfil(request, id):
         if request.method == "POST":
             form = UpdateUsuarioForm(request.POST, request.FILES, instance=request.user)
             if form.is_valid():
-                print(form.cleaned_data)
                 user = form.save()
                 if user is not None:
                     login(request,user)

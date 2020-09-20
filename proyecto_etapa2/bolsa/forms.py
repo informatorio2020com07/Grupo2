@@ -2,11 +2,9 @@ from django import forms
 from .models import Oferta
 
 class OfertaForm(forms.ModelForm):
+    fecha_caducacion=forms.DateField(widget=forms.TextInput(attrs={"placeholder":"01/01/1000"}))
+
     class Meta:
         model = Oferta
-        fields = ("titulo", "descripcion","imagen","categoria","fecha_caducacion")
+        fields = ("titulo", "descripcion","imagen","fecha_caducacion")
 
-
-    #def __init__(self,variables_extras, *args, **kwargs):
-    #super(OfertaForm, self).__init__(*args, **kwargs)
-    #self.fields["categoria"].queryset = Categoria.objects.filter(titulo__icontains = "" )

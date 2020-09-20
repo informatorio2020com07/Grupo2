@@ -7,28 +7,35 @@
 {%block contenido%}
 <div class="row justify-content-center">
         <div class="col-xs-12 col-md-4 col-lg-4 text-center">
-          <div id="contenedor_oferta" class="card mb-4 lg-8 shadow-sm">
+          <div id="contenedor_oferta" class="card mb-4 lg-10 shadow-sm">
             <span><h2>{{oferta.titulo}}</h2></span>
             <p class="text-left">Creada el : {{oferta.fecha_creado}}</p>
-            <img class="rounded img-fluid" width="80%" height="80%" src=  
+            <span><h6 class="text-left">Creador: {{ oferta.oferente }}</h6></span>
+            <img class="rounded img-fluid" width="100%" height="100%" src=  
             "{{oferta.imagen.url}}" alt="imagen de oferta">
             <div class="card-body">
               <h4>Oferta</h4>
               <p id="descripcion_oferta" class="text-left card-text text-white">{{oferta.descripcion}}</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                    <a href="{% url 'ver_perfil' oferta.oferente.id %}" class="btn btn-sm btn-outline-secondary text-white text-white">Perfil</a>
-                </div>
+              <div class="d-flex justify-content-between">
                 <small class="text-white">La oferta termina: {{oferta.fecha_caducacion}} </small>
                 <a class ="text-white" href="{% url 'ver_perfil' oferta.oferente.id %}">
-                <span><h6>Creador: {{ oferta.oferente }}</h6></span>
+                
                 </a>
                 <br>
                 <a class ="text-white" href="{% url 'show_categoria' oferta.categoria.id %}">
                 <span><h6>Categoria: {{ oferta.categoria }}</h6></span>
                 </a>
               </div>
-            </div>
+              <div class="row d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    <a href="{% url 'ver_perfil' oferta.oferente.id %}" class="btn btn-sm btn-outline-secondary text-white text-white">Perfil</a>
+                    {% if oferta.oferente == request.user %}
+                    <a href="{% url 'editar_oferta' oferta.id %}" class="btn btn-sm btn-outline-secondary text-white text-white">Editar Oferta</a>.
+                    <a href="{% url 'borrar_oferta' oferta.id %}" class="btn btn-sm btn-outline-secondary text-white text-white">Borrar Oferta</a>
+                    {% endif %}
+                </div>
+              </div>
+            
           </div>
         </div> 
 </div>           

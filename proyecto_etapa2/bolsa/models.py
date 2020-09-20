@@ -8,9 +8,9 @@ class Oferta(models.Model):
     descripcion = models.TextField()
     imagen = models.ImageField(upload_to="oferta/", null=True)
     oferente = models.ForeignKey(Perfil, on_delete = models.CASCADE,default=None, related_name="oferta_creados")
-    fecha_creado = models.DateTimeField(auto_now_add=True)
-    fecha_modificado = models.DateTimeField(auto_now=True)
+    fecha_creado = models.DateField(auto_now_add=True)
+    fecha_modificado = models.DateField(auto_now=True)
     categoria = models.ForeignKey(Categoria, on_delete = models.SET_NULL,null=True)
-    fecha_caducacion =models.DateTimeField(null=True)
+    fecha_caducacion =models.DateField(null=True,blank=True,default=None)
     def __str__(self):
         return self.titulo

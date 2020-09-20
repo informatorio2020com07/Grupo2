@@ -13,20 +13,36 @@
         <br>
           <label for="id_titulo">Titulo</label>
             {{ form.titulo }}
+            <div>
+          <p>
+            {{ form.titulo.errors }}
+          </p>
+        </div>
 
           <label for="id_descripcion">Descripcion</label>
             {{ form.descripcion }}
-
-
+              <div>
+          <p>
+            {{ form.decripcion.errors }}
+          </p>
+        </div>
           <label for="id_oferente">Imagen</label>
             {{ form.imagen }}
-
-        <label>Categorias</label>
-                {{form.categoria}}
-        
         <label>Fecha de Caducidad</label>
                 {{form.fecha_caducacion}}
-      <input type="submit" value="Crear Oferta"> 
+            <div>
+          <p>
+            {{ form.fecha_caducacion.errors }}
+          </p>
+        </div>
+        
+      {% ifequal editar "editar" %}
+      <input type="submit" value="Editar Oferta">
+    {% else %}
+      <input type="submit" value="Crear Oferta">
+    {% endifequal %}
+      
+
     </form>
 </div>
 </div>

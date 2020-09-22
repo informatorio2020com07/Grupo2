@@ -15,7 +15,13 @@
                     <a href="{% url 'ver_perfil' oferta.oferente.id %}" class="btn btn-sm btn-outline-secondary text-white text-white">Perfil</a>
                     <a href="{% url 'oferta' oferta.id %}" class="btn btn-sm btn-outline-secondary text-white">Oferta Completa</a>
                 </div>
-                <small class="text-white">{{oferta.fecha_caducacion}} </small>
+                <small class="text-white">
+                  {% ifequal oferta.fecha_caducacion none %}
+                    No tiene fecha limite
+                  {% else %}
+                    {{oferta.fecha_caducacion}} 
+                  {% endifequal %} 
+                </small>
                 
               </div>
             </div>

@@ -10,7 +10,7 @@ body{
             background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
-    font-family:Roboto;
+    font-family:Arial;
     margin: 0;
     padding: 0;
     -webkit-box-sizing: border-box;
@@ -35,7 +35,6 @@ body{
     border: none;
     border-radius: 2px;
     box-sizing: border-box;
-    font-family: Roboto;
     font-size: 14px;
     font-weight:normal;
     transition: all .5s ease;

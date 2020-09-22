@@ -8,16 +8,23 @@ Editar Perfil
     <br>
     <div class="formulario">
             <h2>Editar Perfil</h2>
-            <form method="POST" enctype="multipart/form-data">
+      <form method="POST" enctype="multipart/form-data">
                  {% csrf_token %}  
-      <label class="active" for="id_email">Email</label>
+      <label for="id_username">Nombre de Usuario</label>
+      {{ form.username }}
+      <div>
+        <p>
+          {{ form.username.errors }}
+        </p>
+      </div>              
+      <label for="id_email">Email</label>
       {{ form.email }}
       <div>
         <p>
           {{ form.email.errors }}
         </p>
       </div>                            
-      <label for="id_foto">foto</label>
+      <label for="id_foto">Foto</label>
       {{form.foto}}
       <div>
         <p>
@@ -38,37 +45,22 @@ Editar Perfil
           {{ form.localidad.errors }}
         </p>
       </div>
-      {% ifequal request.user.tipo_usuario "trabajador" %} 
-        <label for="id_experiencia_laboral">Experiencia Laboral</label>
-        {{form.experiencia_laboral}}
-        <div>
+      {% ifequal request.user.tipo_usuario "trabajador" %}
+
+          <label id="label_titulo" for="id_titulo">Experiencia Laboral</label>
+          {{ form.experiencia_laboral }}
+         <div>
           <p>
             {{ form.experiencia_laboral.errors }}
           </p>
         </div>
-         <label for="id_categoria">{{categoria}}</label>
-          <div class="row">
-        <label id="label_titulo" for="id_titulo">Oficio o Titulo</label>
-        {{ form.titulo }}
-          </div>
-          <div>
-          <p>
-            {{ form.titulo.errors }}
-          </p>
-        </div>
-         <label id="label_matricula" for="id_titulo">Matricula</label>
-        {{ form.matricula }}
-          <div>
-          <p>
-            {{ form.matricula.errors }}
-          </p>
-        </div>
+
       {% endifequal %}
                 <input type="submit" value="Editar">
             </form>
     </div>
     <div class="reset-password">
-        <a href="#">Editar contraseña</a>
+        <a href="{% url 'cambiar_pass' request.user.id %}">Editar contraseña</a>
     </div>
 </div>
 </div>

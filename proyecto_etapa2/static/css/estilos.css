@@ -95,26 +95,53 @@
 }
 .contenedor-form textarea {
     resize: none;
-
 }
 
 #descripcion_oferta {
     font-size: 1.2rem;
 }
+
 #detalle{
     background: rgba(0,0,0,0.8);
+    position: fixed;
+    top:300px;
+    bottom: 0;
+    right: 0;
+    width: 400px;
 }
 
+#label_titulo{
+    display: block;
+    text-align: center;
+}
 li{
-    display:inline-flex;
-
+    display:block;
 }
 
-ul#id_titulo li input[type="checkbox"]{
-    display:inline-grid;
-
+input[type="radio"]{
+    
+    display:block;
+    position: absolute;
+    cursor: pointer;
 }
-ul#id_titulo li[0]{
+
+
+ul#id_titulo li:first-child {
     display:none;
+}
+ul#id_titulo li label{
+    display:block;
+    padding: 5px 5px;
+    cursor: pointer;
+}
 
+#exp{
+    display: block;
+}
+
+#foto-clear_id{
+    display:none;
+}
+#foto-clear_id + label{
+    display:none;
 }

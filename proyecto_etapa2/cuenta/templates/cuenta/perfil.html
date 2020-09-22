@@ -14,4 +14,9 @@
     <h2 class="text-white">Localidad : {{perfil.localidad}}</h2>
     <a href="{% url 'new_oferta' %}">Crear</a>
     <a href="{% url 'editar_perfil' perfil.id %}">Editar Perfil</a>
+    <a href="{% url 'cargar_titulo' perfil.id %}">Modificar Titulo</a>
+    {% for matricula in matriculas%}
+    <h2 class="text-white">{{matricula.matricula_de_titulo}}</h2>
+    <h2 class="text-white">{{matricula}}</h2>
+    {%endfor%}
 {% endblock %}

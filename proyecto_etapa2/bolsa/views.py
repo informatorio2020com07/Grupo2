@@ -1,38 +1,40 @@
 from django.shortcuts import render, redirect
 from .models import Oferta
-from cuenta.models import Categoria,Matricula_Titulo,Titulo
+from cuenta.models import Categoria
 from .forms import OfertaForm
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
 def index(request):
-    ofertas=Oferta.objects.all()  
+    if request.user.is_authenticated:
+        ofertas=Oferta.objects.filter(oferente__localidad=request.user.localidad)
+    else:    
+        ofertas=Oferta.objects.all()  
     contexto = {"ofertas" : ofertas}
     return render(request, "bolsa/index.html",contexto)
 
 @login_required
 def new_oferta(request):
     if request.user.tipo_usuario=="trabajador":
-        if request.method == "POST":
-            form= OfertaForm(request.POST,request.FILES)        
-            if form.is_valid():
-                oferta=form.save(commit=False)
-                oferta.oferente = request.user
-                #cargar titulo automaticamente
-                id_titulo=Matricula_Titulo.objects.filter(trabajador_id=request.user.id).values()[0]
-                titulo=Titulo.objects.filter(id=id_titulo["titulo_id"]).values()[0]
-                cat=Categoria.objects.filter(id=titulo["categoria_id"]).values()[0]
-                oferta.categoria_id=cat["id"]
-                oferta.save()
-                return redirect("oferta", oferta.id)
-            else:
-                contexto={"form":form,}
-                return render(request, "bolsa/new.html",contexto)
-        #Metodo Get        
-        form = OfertaForm()
-        contexto={"form":form,}
-        return render(request, "bolsa/new.html",contexto)
+        if request.user.matricula_de_trabajador.all().count()>0:
+            if request.method == "POST":
+                form= OfertaForm(request.POST,request.FILES)        
+                if form.is_valid():
+                    oferta=form.save(commit=False)
+                    oferta.oferente = request.user  
+                    oferta.categoria_id=request.user.categoria.id
+                    oferta.save()
+                    return redirect("oferta", oferta.id)
+                else:
+                    contexto={"form":form,}
+                    return render(request, "bolsa/new.html",contexto)
+            #Metodo Get        
+            form = OfertaForm()
+            contexto={"form":form,}
+            return render(request, "bolsa/new.html",contexto)
+        else:
+            return redirect("cargar_titulo", request.user.id)
     else:
         return redirect("index")
 

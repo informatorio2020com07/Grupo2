@@ -1,31 +1,32 @@
-{% ifequal request.user.tipo_usuario "trabajador" %} 
-        <label for="id_experiencia_laboral">Experiencia Laboral</label>
-        {{form.experiencia_laboral}}
-        <div>
-          <p>
-            {{ form.experiencia_laboral.errors }}
-          </p>
-        </div>
-        
-        <label for="id_categoria">Categoria</label>
-        {{ form.categoria }}
-          <div>
-          <p>
-            {{ form.categoria.errors }}
-          </p>
-        </div>
-        <label  id="label_titulo" for="id_titulo">Oficio o Titulo</label>
-        {{ form.titulo }}
-          <div>
-          <p>
-            {{ form.titulo.errors }}
-          </p>
-        </div>
-        <label id="label_matricula" for="id_matricula">Matricula</label>
-        {{ form.matricula }}
-          <div>
-          <p>
-            {{ form.matricula.errors }}
-          </p>
-        </div>
-      {% endifequal %}
+{% extends 'base.html' %}
+{% load static %}
+{%block titulo%}
+Cargar Cuenta
+{% endblock %}
+{%block contenido%}
+<div class="contenedor-form">
+    <br>
+    <div class="formulario">
+            <h2 class="text-center">Cargar Titulo</h2>
+      <form method="POST" enctype="multipart/form-data">
+                 {% csrf_token %} 
+      <label for="id_username">Oficio o Profesión</label>
+      {{ form.titulo }}
+      <div>
+        <p>
+          {{ form.titulo.errors }}
+        </p>
+      </div>              
+      <label for="id_email">Matricula (opcional)</label>
+      {{ form.matricula }}
+      <div>
+        <p>
+          {{ form.matricula.errors }}
+        </p>
+      </div>                       
+
+            <input type="submit" value="Cargar Titulo">
+      </form>
+    </div>
+</div>
+{% endblock %}

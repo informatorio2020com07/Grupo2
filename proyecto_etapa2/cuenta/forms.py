@@ -2,7 +2,6 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.contrib.auth.models import User
 from .models import Perfil,Titulo,Localidad,Matricula_Titulo,Categoria
-from phone_field import PhoneField
 
 class NuevoUsuarioForm(UserCreationForm,forms.Form):
     localidad=forms.ModelChoiceField(queryset=Localidad.objects.all().order_by("localidad"))
@@ -15,21 +14,30 @@ class NuevoUsuarioForm(UserCreationForm,forms.Form):
     password2=forms.CharField(max_length=32, widget=forms.PasswordInput)
     nacimiento=forms.DateField(widget=forms.TextInput(attrs={"placeholder":"01/01/1000"}))
     foto=forms.ImageField()
-    telefono= forms.CharField(help_text='Numero de Contacto')
-    categoria=forms.ModelChoiceField(queryset=Categoria.objects.all(),initial="1")
+    telefono= forms.CharField(help_text='Numero de Contacto', widget=forms.TextInput(attrs={"type":"tel","placeholder":"(000) 000-000000"}))
+    categoria=forms.ModelChoiceField(required=False, queryset=Categoria.objects.all(),initial="1")
+    experiencia_laboral=forms.CharField(widget=forms.Textarea(attrs={"placeholder":"Tu forma de trabajar en 200 caracteres"}))
     class Meta:
         model = Perfil
         fields = ("first_name","last_name","username","dni", "email", "password1",
-         "password2", "nacimiento", "foto","telefono","localidad","categoria")
+         "password2", "nacimiento", "foto","telefono","localidad","categoria","experiencia_laboral")
 
 class UpdateUsuarioForm(UserChangeForm):
-    experiencia_laboral=forms.CharField(widget=forms.Textarea(attrs={"placeholder":"Tu forma de trabajar en 200 caracteres"}))
-    titulo = forms.ModelChoiceField(queryset = Titulo.objects.filter(categoria_id=1),widget=forms.CheckboxSelectMultiple,required = False)
-    matricula=forms.CharField()
     class Meta:
         model = Perfil
-        fields = ("email","foto","telefono","experiencia_laboral","localidad",
-            "titulo","matricula")
-    #def __init__(self,instance, *args, **kwargs):
-        #titulos=Matricula_Titulo.objects.filter(trabajador_id=instance.id)
-        #self.fields["titulo"].queryset = Titulo.objects.filter(titulo__icontains = titulos )
+        fields = ("username","email","foto","telefono","experiencia_laboral","localidad")
+    def __init__(self,*args, **kwargs):
+        super(UpdateUsuarioForm, self).__init__(*args, **kwargs)
+        localidad=forms.ModelChoiceField(queryset=Localidad.objects.all().order_by("localidad"))
+        self.fields["localidad"]=localidad
+        experiencia_laboral=forms.CharField(widget=forms.Textarea(attrs={"placeholder":"Tu forma de trabajar en 200 caracteres"}))
+        self.fields["experiencia_laboral"]=experiencia_laboral
+
+class TerminarInscripcionForm(forms.ModelForm):
+    class Meta:
+        model = Matricula_Titulo
+        fields=("matricula","titulo")
+    def __init__(self,categoria, *args, **kwargs):
+        super(TerminarInscripcionForm, self).__init__(*args, **kwargs)
+        titulo=forms.ModelChoiceField(queryset = Titulo.objects.filter(categoria_id = categoria),widget=forms.RadioSelect,required = False)
+        self.fields["titulo"]=titulo

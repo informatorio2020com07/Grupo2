@@ -90,7 +90,16 @@
         </p>
       </div>
       {% ifequal pagina "trabajador" %}
-        <p>Pasa por la editar perfil y carga tus habilidades</p>
+        
+      
+
+       <label for="id_categoria">Experiencia Laboral</label>
+      {{form.experiencia_laboral}}
+      <div>
+        <p>
+          {{ form.experiencia_laboral.errors }}
+        </p>
+      </div>
       <label for="id_categoria">Categoria</label>
       {{form.categoria}}
       <div>
@@ -105,6 +114,7 @@
 </div>
 <div class="row">
   <div id ="detalle" class="contenedor-form">
+    <h3 class=text-center>Esta son las categorias</h3>
   {% for categoria in categorias %}
             <div>
               <h4>{{categoria.nombre_cat}}</h4>

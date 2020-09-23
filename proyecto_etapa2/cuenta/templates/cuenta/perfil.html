@@ -4,19 +4,47 @@
     Perfil de {{ perfil.username }}
 {% endblock %}
 {% block contenido%}
-<br>
-<br>
-    <h1 class="text-white">Perfil</h1>
-    <h2 class="text-white">Nombre: {{perfil.first_name}}</h2>
-    <h2 class="text-white">Apellido: {{perfil.last_name}}</h2>
-    <h2 class="text-white">Telefono: {{perfil.telefono}}</h2>
-    <h2 class="text-white">Usuario: {{perfil.username}}</h2>
-    <h2 class="text-white">Localidad : {{perfil.localidad}}</h2>
-    <a href="{% url 'new_oferta' %}">Crear</a>
-    <a href="{% url 'editar_perfil' perfil.id %}">Editar Perfil</a>
-    <a href="{% url 'cargar_titulo' perfil.id %}">Modificar Titulo</a>
-    {% for matricula in matriculas%}
-    <h2 class="text-white">{{matricula.matricula_de_titulo}}</h2>
-    <h2 class="text-white">{{matricula}}</h2>
-    {%endfor%}
+<div class="row justify-content-center">
+        <div class="col-xs-12 col-md-4 col-lg-6 text-center">
+          <div id="contenedor_oferta" class="card mb-4 lg-10 shadow-sm">
+            <img class="rounded img-fluid" width="20%" height="20%" src=  
+            "{{perfil.foto.url}}" alt="foto de perfil">
+            <div class="card-body">
+                <h4>Usuario: {{perfil.username}}</h4>
+                <p id="descripcion_oferta" class="text-left card-text text-white">{{oferta.descripcion}}</p>
+                <h3 class="text-left">Datos Personales:</h3>
+                <span><h6 class="text-left">Nombre: {{perfil.first_name}}</h6></span>
+                <span><h6 class="text-left">Apellido: {{perfil.last_name}}</h6></span>
+                <span><h6 class="text-left">Telefono: {{perfil.telefono}}</h6></span>
+                <span><h6 class="text-left">Localidad : {{perfil.localidad}}</h6></span>
+                
+              <div class="d-flex justify-content">
+                <h1 class="text-white">Titulos:</h1>
+                {% for matricula in matriculas%}
+                    <div>
+                        <h5 class="text-white">{{matricula.titulo}} : {{matricula}}</h5>
+                        {% ifequal request.user perfil %}    
+                            <a href="{% url 'borrar_titulo'  matricula.id %}">borrar</a>
+                        {% endifequal %}
+                    </div>
+                {%endfor%}
+                </div>
+              <div class="row d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    {% ifequal request.user perfil %}
+                    <a href="{% url 'new_oferta' %}" class="btn btn-sm btn-outline-secondary text-white text-white">Crear Oferta</a>
+                    <a href="{% url 'editar_perfil' perfil.id %}" class="btn btn-sm btn-outline-secondary text-white text-white">Editar Perfil</a>
+                    <a href="{% url 'cargar_titulo' perfil.id %}" class="btn btn-sm btn-outline-secondary text-white text-white">Cargar Titulo</a>
+                    {% endifequal %}
+                </div>
+              </div>
+            </div>
+</div>           
+<div class="row justify-content-center">
+        <div class="col-xs-12 col-md-4 col-lg-6 text-center">
+            <div id="contenedor_oferta" class="card mb-4 lg-10 shadow-sm">
+                <h1>Falta Comentario y recomendaciones</h1>
+            </div>
+        </div>
+</div>            
 {% endblock %}

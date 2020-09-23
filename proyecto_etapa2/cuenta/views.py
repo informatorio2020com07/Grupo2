@@ -4,6 +4,7 @@ from .forms import NuevoUsuarioForm, UpdateUsuarioForm, TerminarInscripcionForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from .models import Perfil,Titulo,Categoria,Matricula_Titulo
+from django.db import IntegrityError
 from bolsa.views import index
 
 
@@ -14,9 +15,7 @@ def nuevo_cliente(request):
         form = NuevoUsuarioForm()
         if request.method == "POST":
             form = NuevoUsuarioForm(request.POST, request.FILES)
-            print(form)
             if form.is_valid():
-                print("entro aca")
                 user = form.save(commit=False)
                 user.tipo_usuario="cliente"
                 user.save()
@@ -94,14 +93,29 @@ def cambiar_pass(request, id):
 def cargar_titulo(request,id):
     perfil = Perfil.objects.get(pk=id)
     if perfil == request.user:
-        form = TerminarInscripcionForm(categoria=request.user.categoria.id)
+        form = TerminarInscripcionForm(categoria=perfil.categoria.id)
         if request.method == "POST":
-            form = TerminarInscripcionForm(data=request.POST,instance=request.user,categoria=request.user.categoria.id)
-
+            form = TerminarInscripcionForm(data=request.POST,categoria=perfil.categoria.id)
             if form.is_valid():
-                datos=form.cleaned_data
-                matricula_titulo=Matricula_Titulo.objects.create(trabajador_id=perfil.id,titulo_id=datos["titulo"].id,matricula=datos["matricula"])
+                datos = form.cleaned_data
+                matricula_titulo=form.save(commit=False)
+                matricula_titulo.trabajador_id=perfil.id
+                if datos["matricula"] == None:
+                    matricula_titulo.matricula=""
+                try:
+                    matricula_titulo.save()
+                except IntegrityError as e:
+                    return render(request, "cuenta/cargar_titulo.html",{"form":form,"error":"Usted ya posee ese titulo si desea modificarlo borrelo"})
                 return redirect("ver_perfil", perfil.id)
         return render(request, "cuenta/cargar_titulo.html",{"form":form})
     else:
         return redirect("index")
+
+@login_required
+def borrar_titulo(request,id):
+    matricula=Matricula_Titulo.objects.get(pk=id)
+    if request.user.id == matricula.trabajador_id:
+        matricula.delete()
+        return redirect("ver_perfil", request.user.id)            
+    else:
+        return redirect("ver_perfil", request.user.id)

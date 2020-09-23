@@ -31,10 +31,13 @@ class Perfil(AbstractUser):
     nacimiento = models.DateField(null = True)
     foto = models.ImageField(upload_to = "foto_perfil", null = True, blank = True)
     telefono = models.CharField(max_length = 20)
-    localidad = models.ForeignKey(Localidad, on_delete = models.CASCADE,null=True, related_name="personas_localidad") 
-    experiencia_laboral = models.CharField(max_length = 200,null = True,blank = True)
+    localidad = models.ForeignKey(Localidad, on_delete = models.CASCADE, null=True, related_name="personas_localidad") 
+    experiencia_laboral = models.CharField(max_length = 200,null = True, blank = True)
     recomendaciones = models.IntegerField(default=0, null = True)
-    categoria = models.ForeignKey(Categoria, on_delete = models.CASCADE,default=None,null=True, related_name="perfil_de_categoria")
+    categoria = models.ForeignKey(Categoria, on_delete = models.CASCADE, default=None, null=True, related_name="perfil_de_categoria")
+    facebook = models.CharField(max_length = 40, null=True)
+    instagram = models.CharField(max_length = 40, null=True, blank = True)
+
     
     def __str__(self):
         return self.username
@@ -43,6 +46,8 @@ class Matricula_Titulo(models.Model):
     trabajador = models.ForeignKey(Perfil, on_delete = models.SET_NULL, null = True, related_name="matricula_de_trabajador")
     titulo = models.ForeignKey(Titulo, on_delete = models.CASCADE,null = True, related_name="matricula_de_titulo")
     matricula = models.CharField(max_length = 30,null = True, blank=True)
+    class Meta:
+        unique_together = ("trabajador","titulo")
     def __str__(self):
         return self.matricula
 

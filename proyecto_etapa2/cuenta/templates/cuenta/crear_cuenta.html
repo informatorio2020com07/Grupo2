@@ -82,6 +82,20 @@
           {{ form.telefono.errors }}
         </p>
       </div>
+      <label for="id_telefono">Facebook(opcional)</label>
+      {{form.facebook}}
+      <div>
+        <p>
+          {{ form.facebook.errors }}
+        </p>
+      </div>
+      <label for="id_telefono">Instagram(opcional)</label>
+      {{form.instagram}}
+      <div>
+        <p>
+          {{ form.instagram.errors }}
+        </p>
+      </div>
       <label for="id_localidad">Localidad</label>
       {{form.localidad}}
       <div>
@@ -89,10 +103,8 @@
           {{ form.localidad.errors }}
         </p>
       </div>
-      {% ifequal pagina "trabajador" %}
-        
       
-
+        {% ifequal pagina "trabajador" %}
        <label for="id_categoria">Experiencia Laboral</label>
       {{form.experiencia_laboral}}
       <div>
@@ -112,6 +124,7 @@
     </form>
   </div>
 </div>
+{% ifequal pagina "trabajador" %}
 <div class="row">
   <div id ="detalle" class="contenedor-form">
     <h3 class=text-center>Esta son las categorias</h3>
@@ -125,4 +138,5 @@
           {% endfor %}
   </div>
 </div>
+ {% endifequal %}
 {% endblock %}

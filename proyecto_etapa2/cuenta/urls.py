@@ -10,4 +10,6 @@ urlpatterns = [
     path("perfil/<int:id>", views.ver_perfil, name="ver_perfil"),
     path("perfil/editar/<int:id>", views.editar_perfil, name="editar_perfil"),
     path("perfil/editar/cambiar_pass/<int:id>", views.cambiar_pass, name="cambiar_pass"),
+    path("perfil/editar/borrar_titulo/<int:id>", views.borrar_titulo, name="borrar_titulo"),
+    
     ]

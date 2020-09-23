@@ -14,13 +14,13 @@ class NuevoUsuarioForm(UserCreationForm,forms.Form):
     password2=forms.CharField(max_length=32, widget=forms.PasswordInput)
     nacimiento=forms.DateField(widget=forms.TextInput(attrs={"placeholder":"01/01/1000"}))
     foto=forms.ImageField()
-    telefono= forms.CharField(help_text='Numero de Contacto', widget=forms.TextInput(attrs={"type":"tel","placeholder":"(000) 000-000000"}))
+    telefono= forms.CharField(help_text='Numero de Contacto', widget=forms.TextInput(attrs={"placeholder":"codigo numero"}))
     categoria=forms.ModelChoiceField(required=False, queryset=Categoria.objects.all(),initial="1")
-    experiencia_laboral=forms.CharField(widget=forms.Textarea(attrs={"placeholder":"Tu forma de trabajar en 200 caracteres"}))
+    experiencia_laboral=forms.CharField(required=False, widget=forms.Textarea(attrs={"placeholder":"Tu forma de trabajar en 200 caracteres"}))
     class Meta:
         model = Perfil
         fields = ("first_name","last_name","username","dni", "email", "password1",
-         "password2", "nacimiento", "foto","telefono","localidad","categoria","experiencia_laboral")
+         "password2", "nacimiento", "foto","telefono","localidad","categoria","experiencia_laboral","facebook","instagram")
 
 class UpdateUsuarioForm(UserChangeForm):
     class Meta:

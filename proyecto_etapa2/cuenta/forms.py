@@ -13,10 +13,12 @@ class NuevoUsuarioForm(UserCreationForm,forms.Form):
     password1=forms.CharField(max_length=32, widget=forms.PasswordInput)
     password2=forms.CharField(max_length=32, widget=forms.PasswordInput)
     nacimiento=forms.DateField(widget=forms.TextInput(attrs={"placeholder":"01/01/1000"}))
-    foto=forms.ImageField()
+    foto=forms.ImageField(required=False)
     telefono= forms.CharField(help_text='Numero de Contacto', widget=forms.TextInput(attrs={"placeholder":"codigo numero"}))
     categoria=forms.ModelChoiceField(required=False, queryset=Categoria.objects.all(),initial="1")
     experiencia_laboral=forms.CharField(required=False, widget=forms.Textarea(attrs={"placeholder":"Tu forma de trabajar en 200 caracteres"}))
+    facebook=forms.CharField(required=False)
+    instagram=forms.CharField(required=False)
     class Meta:
         model = Perfil
         fields = ("first_name","last_name","username","dni", "email", "password1",

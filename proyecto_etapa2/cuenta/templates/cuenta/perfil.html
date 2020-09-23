@@ -7,8 +7,12 @@
 <div class="row justify-content-center">
         <div class="col-xs-12 col-md-4 col-lg-6 text-center">
           <div id="contenedor_oferta" class="card mb-4 lg-10 shadow-sm">
-            <img class="rounded img-fluid" width="20%" height="20%" src=  
-            "{{perfil.foto.url}}" alt="foto de perfil">
+            {% if request.user.foto %}
+                <img src=  
+            "{{perfil.foto.url}}" width="50" height="50" class="d-inline-block align-top" alt="foto de perfil">
+            {%else%}
+                <img src="{% static 'img/pordefecto.jpg' %}" width="50" height="50" class="d-inline-block align-top" alt="logo">
+            {% endif %}
             <div class="card-body">
                 <h4>Usuario: {{perfil.username}}</h4>
                 <p id="descripcion_oferta" class="text-left card-text text-white">{{oferta.descripcion}}</p>

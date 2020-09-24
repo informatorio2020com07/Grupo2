@@ -21,7 +21,7 @@ def index(request):
     if request.user.is_authenticated:
         ofertas1=Oferta.objects.filter(oferente__localidad=request.user.localidad)
     else:
-        ofertas1 = None   
+        ofertas1 = None  
     ofertas=Oferta.objects.all()
     contexto = {"ofertas" : ofertas,
                 "ofertas1" : ofertas1,

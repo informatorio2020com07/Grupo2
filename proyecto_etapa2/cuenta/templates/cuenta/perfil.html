@@ -15,7 +15,7 @@
                     {%else%}
                         <img src="{% static 'img/pordefecto.jpg' %}" width="60" height="60" class="float-left rounded-circle" alt="logo">
                     {% endif %}
-                    <h2 class="title">Usuario: {{perfil.username}}</h2>
+                    <h2 class="title">{{perfil.tipo_usuario}}: {{perfil.username}}</h2>
                 </div>
                 <div class="col-md-4 mt-4">
                     {% ifequal request.user perfil %}
@@ -41,6 +41,7 @@
                         <h5 class="text-left">Localidad : {{perfil.localidad}}</h5>      
                     </div>
                 </div>
+            {% if perfil.tipo_usuario == "trabajador" %}
                 <div class="col-md-8 ml-auto">
                     <div class="card-body"> 
                         <h4 class="text-white">Profesión:</h4>
@@ -63,17 +64,17 @@
                 </div>  
 
 
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h4>Experiencia Laboral:</h4>
                 </div>
-                <div class="col-md-12">
-                    <p id="descripcion_oferta" class="card-text text-white text-align">{{perfil.experiencia_laboral}}</p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Experiencia Laboral:</h4>
+                        </div>
+                        <div class="col-md-12">
+                            <p id="descripcion_oferta" class="card-text text-white text-align">{{perfil.experiencia_laboral}}</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-            
+           {% endif %} 
         <div class="container m-2 mt-4">
             <div class="row">
                 <div class="col-md-4">
@@ -86,7 +87,11 @@
                 </div>
 
                 <div class="col-md-4">
+                    {% if perfil.tipo_usuario == "trabajador" %}
                     <h7>Contancta a tu profesional: </h7>
+                    {% else %}
+                    <h7 class="text-center">Contancta:</h7>
+                    {% endif %}
                     <div class="card-body">
                          <a href="http://www.facebook.com/{{perfil.facebook}}" target="blank"><img width="30" height="30" class="float-left rounded-circle mr-2" src="{% static 'img/facebook.png' %}"></a>
                         <a href="http://www.instagram.com/{{perfil.instagram}}" target="blank"><img width="30" height="30" class="float-left rounded-circle mr-2" src="{% static 'img/instagram.jpg' %}"></a>
@@ -113,22 +118,21 @@
     </div> 
      
     <!--Comentarios-->
-    {% if request.user.is_authenticated %}
-        <div class="contenedor-form m-2 container">
-            <div class="formulario"> 
-                <form method="POST" action="{% url 'comentar' perfil.id %}">
-                    {% csrf_token %}
-                    <div class="container m-2">
-                        <label for="id_text"><h6>Comentario:</h6></label>
-                        {{ form_comentario.texto }}
-                      <button class="" type="submit" name="action">
-                          <i class="fa fa-plus-circle" aria-hidden="true"></i>Agregar
-                      </button>
-                    </div>
-                </form>
+        {% if request.user.is_authenticated %}
+            <div class="contenedor-form m-2 container">
+                <div class="formulario"> 
+                    <form method="POST" action="{% url 'comentar' perfil.id %}">
+                        {% csrf_token %}
+                        <div class="container m-2">
+                            <label for="id_text"><h6>Comentario:</h6></label>
+                            {{ form_comentario.texto }}
+                          <button class="" type="submit" name="action">
+                              <i class="fa fa-plus-circle" aria-hidden="true"></i>Agregar
+                          </button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
-    
         {% endif %}
         <div id="contenedor_perfil" class="container">
             <div class="container m-2">
@@ -161,7 +165,7 @@
 
 </div>
     <!--Oferta del perfil-->
-    <<div class="container">  
+    <div class="container">  
       <div class="row">
         {% include 'bolsa/lista_oferta.html' with ofertas=ofertas %}
     </div>

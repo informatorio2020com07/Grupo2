@@ -15,12 +15,16 @@
         {% include 'bolsa/lista_oferta.html' with ofertas=ofertas_buscar %}
        <!--Termina-->
       </div>
-        
+      {{oferta1}}
+      {% if ofertas1 %}
+      <h2 class="text-white">En tu localidad:</h2>
+      {% endif %}
       <div class="row">
         <!--comienza--> 
         {% include 'bolsa/lista_oferta.html' with ofertas=ofertas1 %}
        <!--Termina-->
       </div>
+      <h2 class="text-white">Todas las ofertas:</h2>
       <div class="row">
         <!--comienza--> 
         {% include 'bolsa/lista_oferta.html' with ofertas=ofertas %}

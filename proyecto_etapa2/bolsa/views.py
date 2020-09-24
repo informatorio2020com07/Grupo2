@@ -22,10 +22,7 @@ def index(request):
         ofertas1=Oferta.objects.filter(oferente__localidad=request.user.localidad)
     else:
         ofertas1 = None   
-
-
     ofertas=Oferta.objects.all()
-
     contexto = {"ofertas" : ofertas,
                 "ofertas1" : ofertas1,
                 "ofertas_buscar" : ofertas_buscar,
@@ -102,7 +99,6 @@ def editar_oferta(request, id):
             else:
                 contexto = {
                 "form" : form,
-                "editar" : "editar"
                 }
                 return render(request, "bolsa/new.html", contexto)
 

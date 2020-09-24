@@ -112,7 +112,7 @@
     right: 0;
     width: 400px;
 }
-@media (max-width: 1178px){
+@media (max-width: 800px){
     #detalle{
     position: relative;
     top:auto;

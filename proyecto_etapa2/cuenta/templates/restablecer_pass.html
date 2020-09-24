@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block titulo%}
+Recuperar contraseña
+{% endblock %}
+{%block contenido%}
+<div class="contenedor-form">
+    <br>
+    <div class="formulario">
+            <h2>Recuperar contraseña</h2>
+			<form method="post" action="#">
+				{% csrf_token %}
+				<label for="id_email">Correo:</label>{{ form.email }}
+				<input type="submit" value="Enviar"/>
+</form>
+ 
+
+{% endblock %}

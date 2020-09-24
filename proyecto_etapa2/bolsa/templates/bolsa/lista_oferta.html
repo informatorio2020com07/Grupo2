@@ -1,31 +1,30 @@
 
-{% for oferta in ofertas %}
-            
-             <div class="col-xs-12 col-md-4 text-center">
-          <div id="contenedor_oferta" class="card mb-4 shadow-sm">
-            <span>{{oferta.titulo}}</span>
-            <a href="{% url 'oferta' oferta.id %}">
-              <img class="bd-placeholder-img card-img-top" width="100%" height="225" src=  
-              "{{oferta.imagen.url}}" alt="imagen de oferta">
-            </a>
-            <div class="card-body">
-              <p class="card-text text-white">{{oferta.descripcion | truncatechars:40}}</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group d-flex ">
-                    <a href="{% url 'ver_perfil' oferta.oferente.id %}" class="btn btn-sm btn-outline-secondary text-white text-white">Perfil</a>
-                    <a href="{% url 'oferta' oferta.id %}" class="btn btn-sm btn-outline-secondary text-white">Oferta Completa</a>
-                </div>
-                <small id="fecha_cad" class="text-white">
-                  {% ifequal oferta.fecha_caducacion none %}
-                    No tiene fecha limite
-                  {% else %}
-                    {{oferta.fecha_caducacion}} 
-                  {% endifequal %} 
-                </small>
-                
-              </div>
-            </div>
-          </div>
-        </div> 
+{% for oferta in ofertas %}          
+<div class="col-xs-12 col-md-4 text-center">
+  <div id="contenedor_oferta" class="card mb-4 shadow-sm">
+    <span>{{oferta.titulo}}</span>
+    <a href="{% url 'oferta' oferta.id %}">
+      <img class="bd-placeholder-img card-img-top" width="100%" height="225" src=  
+      "{{oferta.imagen.url}}" alt="imagen de oferta">
+    </a>
+    <div class="card-body">
+      <p class="card-text text-white">{{oferta.descripcion | truncatechars:40}}</p>
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="btn-group d-flex ">
+            <a href="{% url 'ver_perfil' oferta.oferente.id %}" class="btn btn-sm btn-outline-secondary text-white text-white">Perfil</a>
+            <a href="{% url 'oferta' oferta.id %}" class="btn btn-sm btn-outline-secondary text-white">Oferta Completa</a>
+        </div>
+        <small id="fecha_cad" class="text-white">
+          {% ifequal oferta.fecha_caducacion none %}
+            No tiene fecha limite
+          {% else %}
+            {{oferta.fecha_caducacion}} 
+          {% endifequal %} 
+        </small>
+        
+      </div>
+    </div>
+  </div>
+</div> 
 
 {% endfor %}                

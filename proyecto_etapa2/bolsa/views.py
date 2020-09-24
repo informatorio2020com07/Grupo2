@@ -1,19 +1,36 @@
 from django.shortcuts import render, redirect
 from .models import Oferta
 from cuenta.models import Categoria
-from .forms import OfertaForm
+from .forms import OfertaForm,SearchForm
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
 def index(request):
+    if request.GET:
+        search_form = SearchForm(request.GET)
+    else:
+        search_form = SearchForm()
+
+    filtro_titulo = request.GET.get("titulo", None)
+    if filtro_titulo:
+        ofertas_buscar = Oferta.objects.filter(oferente__matricula_de_trabajador__titulo__titulo__icontains=filtro_titulo)
+    else:   
+        ofertas_buscar=None
+
     if request.user.is_authenticated:
         ofertas1=Oferta.objects.filter(oferente__localidad=request.user.localidad)
     else:
-        ofertas1=None   
+        ofertas1 = None   
+
+
     ofertas=Oferta.objects.all()
+
     contexto = {"ofertas" : ofertas,
-                "ofertas1" : ofertas1}
+                "ofertas1" : ofertas1,
+                "ofertas_buscar" : ofertas_buscar,
+                "search_form" : search_form
+                }
     return render(request, "bolsa/index.html",contexto)
 
 @login_required

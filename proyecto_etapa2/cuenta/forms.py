@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.contrib.auth.models import User
-from .models import Perfil,Titulo,Localidad,Matricula_Titulo,Categoria
+from .models import Perfil,Titulo,Localidad,Matricula_Titulo,Categoria,Comentario
 
 class NuevoUsuarioForm(UserCreationForm,forms.Form):
     localidad=forms.ModelChoiceField(queryset=Localidad.objects.all().order_by("localidad"))
@@ -36,10 +36,21 @@ class UpdateUsuarioForm(UserChangeForm):
         self.fields["experiencia_laboral"]=experiencia_laboral
 
 class TerminarInscripcionForm(forms.ModelForm):
+    titulo_nuevo=forms.CharField(required=False, widget=forms.TextInput(attrs={"placeholder":"Ingrese su actividad"}))
     class Meta:
         model = Matricula_Titulo
-        fields=("matricula","titulo")
+        fields=("matricula","titulo", "titulo_nuevo")
     def __init__(self,categoria, *args, **kwargs):
         super(TerminarInscripcionForm, self).__init__(*args, **kwargs)
         titulo=forms.ModelChoiceField(queryset = Titulo.objects.filter(categoria_id = categoria),widget=forms.RadioSelect,required = False)
         self.fields["titulo"]=titulo
+
+class ComentarioForm(forms.ModelForm):
+    texto=forms.CharField(max_length=200, widget=forms.TextInput(attrs={"placeholder":"comentario"}))
+    class Meta:
+        model = Comentario
+        fields =("texto",)
+
+class Recuperar_passForm(forms.ModelForm):
+    class Meta:
+        fields= ("username","dni", "email", "nacimiento")

@@ -33,10 +33,10 @@ class Perfil(AbstractUser):
     telefono = models.CharField(max_length = 20)
     localidad = models.ForeignKey(Localidad, on_delete = models.CASCADE, null=True, related_name="personas_localidad") 
     experiencia_laboral = models.CharField(max_length = 200,null = True, blank = True)
-    recomendaciones = models.IntegerField(default=0, null = True)
     categoria = models.ForeignKey(Categoria, on_delete = models.CASCADE, default=None, null=True, related_name="perfil_de_categoria")
     facebook = models.CharField(max_length = 40, null=True)
     instagram = models.CharField(max_length = 40, null=True, blank = True)
+    recomendaciones = models.ManyToManyField("Perfil", blank=True, through="Recomendaciones", related_name="trabajador_recomendado")
 
     
     def __str__(self):
@@ -52,9 +52,19 @@ class Matricula_Titulo(models.Model):
         return self.matricula
 
 class Comentario(models.Model):
-    com_trabajor = models.ForeignKey(Perfil, on_delete = models.CASCADE, related_name="comentarios_de_trabajador")
+    com_trabajador = models.ForeignKey(Perfil, on_delete = models.CASCADE, related_name="comentarios_de_trabajador")
     usuario = models.ForeignKey(Perfil, on_delete = models.SET_NULL, null = True, related_name="comentario_cliente")
     texto = models.TextField(max_length = 200)
     fecha_creacion = models.DateTimeField(auto_now_add = True)
+    
+
+class Recomendaciones(models.Model):
+    trabajador = models.ForeignKey(Perfil, on_delete = models.SET_NULL, null = True, related_name="recomendado")
+    cliente = models.ForeignKey(Perfil, on_delete = models.SET_NULL, null = True, related_name="cliente_recomendante")
+    recomendaciones = models.IntegerField(default=0, null = True, blank=True)
+    class Meta:
+        unique_together = ("trabajador","cliente")
+    def __str__(self):
+        return self.recomendaciones
 
 

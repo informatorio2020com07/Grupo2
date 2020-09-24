@@ -11,5 +11,8 @@ urlpatterns = [
     path("perfil/editar/<int:id>", views.editar_perfil, name="editar_perfil"),
     path("perfil/editar/cambiar_pass/<int:id>", views.cambiar_pass, name="cambiar_pass"),
     path("perfil/editar/borrar_titulo/<int:id>", views.borrar_titulo, name="borrar_titulo"),
+    path("perfil/si_recomiendo/<int:id>", views.si_recomiendo, name="si_recomiendo"),
+    path("perfil/no_recomiendo/<int:id>", views.no_recomiendo, name="no_recomiendo"),
+    path("perfil/<int:id>/comentar", views.comentar, name="comentar"),
     
     ]

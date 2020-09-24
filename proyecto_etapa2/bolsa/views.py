@@ -8,13 +8,12 @@ from django.contrib.auth.decorators import login_required
 
 def index(request):
     if request.user.is_authenticated:
-        ofertas=Oferta.objects.filter(oferente__localidad=request.user.localidad)
-        if ofertas.count()==0:
-            ofertas=Oferta.objects.all()    
-    else:    
-        ofertas=Oferta.objects.all()
-
-    contexto = {"ofertas" : ofertas}
+        ofertas1=Oferta.objects.filter(oferente__localidad=request.user.localidad)
+    else:
+        ofertas1=None   
+    ofertas=Oferta.objects.all()
+    contexto = {"ofertas" : ofertas,
+                "ofertas1" : ofertas1}
     return render(request, "bolsa/index.html",contexto)
 
 @login_required

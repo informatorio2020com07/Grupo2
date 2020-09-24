@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block titulo%}
+ Cambiar Contraseña
+{% endblock %}
+{%block contenido%}
+<div class="contenedor-form">
+    <br>
+    <div class="formulario">
+            <h2>Cambiar contraseña</h2>
+            <form method="POST">
+                {% csrf_token %}
+                {{form}}
+                {{form.errors}}
+                <input type="submit" value="Cambiar contraseña">
+            </form>
+    </div>
+{% endblock %}

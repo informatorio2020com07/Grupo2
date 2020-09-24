@@ -145,3 +145,11 @@ LOGIN_URL = "iniciar_sesion"
 
 AUTH_USER_MODEL = "cuenta.Perfil"
 
+"""
+EMAIL_USE_TLS = True
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 25
+EMAIL_HOST_USER = "grupo2django@gmail.com"
+EMAIL_HOST_PASSWORD = "grupo2BolsadeTrabajo"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+"""

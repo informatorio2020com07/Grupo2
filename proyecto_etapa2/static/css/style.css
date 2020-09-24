@@ -3,8 +3,9 @@ body{
     font-weight: bold;
     background-image: url("../img/fondo.jpg");
             /* Full height */
-            max-height: 100%;
-            max-width: 100%;
+            width: 95%;
+            max-width: 150rem;
+            margin: 0 auto 0 auto;
             /* Center and scale the image nicely */
             background-position: center;
             background-repeat: no-repeat;
@@ -28,19 +29,30 @@ body{
     outline: none;
     display: block;
     width: 100%;
-    padding: 10px 15px;
-    margin: 0 0 20px 0;
+    padding: 1rem 1.5rem;
+    margin: 0 0 2rem 0;
     background: rgba(0,0,0,.5);
     color: #fff;
     border: none;
-    border-radius: 2px;
+    border-radius: 8px;
     box-sizing: border-box;
     font-size: 14px;
     font-weight:normal;
     transition: all .5s ease;
 }
 
-textarea {
-    overflow: scroll;
-    resize: none;
+#contenedor_perfil{
+    outline: none;
+    display: block;
+    width: 100%;
+    padding: 1px 1px;
+    margin: 0 0 2rem 0;
+    background: rgba(0,0,0,.5);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight:normal;
+    transition: all .5s ease;
 }

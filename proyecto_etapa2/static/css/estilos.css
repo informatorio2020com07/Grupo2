@@ -1,6 +1,6 @@
 .contenedor-form {
     background: rgba(0,0,0,.7);
-    max-width: 500px;
+    max-width: 1140px;
     width: 100%;
     margin: 48px auto;
     border-radius: 5px;
@@ -95,6 +95,9 @@
 }
 .contenedor-form textarea {
     resize: none;
+    width: 100%;
+    height: 20%;
+     padding: 15px 0;
 }
 
 #descripcion_oferta {
@@ -108,6 +111,14 @@
     bottom: 0;
     right: 0;
     width: 400px;
+}
+@media (max-width: 1178px){
+    #detalle{
+    position: relative;
+    top:auto;
+    bottom: auto;
+    right: auto;
+    }
 }
 
 #label_titulo{
@@ -126,9 +137,6 @@ input[type="radio"]{
 }
 
 
-ul#id_titulo li:first-child {
-    display:none;
-}
 ul#id_titulo li label{
     display:block;
     padding: 5px 5px;
@@ -145,3 +153,30 @@ ul#id_titulo li label{
 #foto-clear_id + label{
     display:none;
 }
+
+#botones_perfil{
+    display:block;
+    position: absolute;
+    margin: 23rem 9rem;
+}
+
+@media (max-width: 768px){
+#botones_perfil{
+    display:block;
+    position: relative;
+    margin:0 0 0 0;
+    }
+}
+@media (max-width: 950px){
+#fecha_cad{
+    display:none;
+    }
+@media (max-width: 768px){
+#fecha_cad{
+    display: block;
+    }
+
+a{
+     text-decoration:none;
+}
+

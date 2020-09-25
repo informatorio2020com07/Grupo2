@@ -55,6 +55,7 @@ def new_oferta(request):
         return redirect("index")
 
 def show_oferta(request,id):
+
     oferta=Oferta.objects.get(pk=id)
     usuario=oferta.oferente
     contexto = {
@@ -62,9 +63,20 @@ def show_oferta(request,id):
     return render(request,"bolsa/oferta.html",contexto)
 
 def show_categoria(request,id):
+    if request.GET:
+        search_form = SearchForm(request.GET)
+    else:
+        search_form = SearchForm()
+
+    filtro_titulo = request.GET.get("titulo", None)
+    if filtro_titulo:
+        ofertas_buscar = Oferta.objects.filter(oferente__matricula_de_trabajador__titulo__titulo__icontains=filtro_titulo)
+    else:   
+        ofertas_buscar=None
     cat=Categoria.objects.get(pk=id)
     ofertas = Oferta.objects.filter(categoria=cat.id)
-    contexto = {"ofertas":ofertas,}
+    contexto = {"ofertas":ofertas,
+                "search_form" : search_form}
     return render(request, "bolsa/index.html",contexto)
 
 def borrar_oferta(request,id):

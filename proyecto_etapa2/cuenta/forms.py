@@ -22,17 +22,18 @@ class NuevoUsuarioForm(UserCreationForm,forms.Form):
     class Meta:
         model = Perfil
         fields = ("first_name","last_name","username","dni", "email", "password1",
-         "password2", "nacimiento", "foto","telefono","localidad","categoria","experiencia_laboral","facebook","instagram")
+         "password2", "nacimiento", "foto","telefono","localidad","categoria",
+         "experiencia_laboral","facebook","instagram")
 
 class UpdateUsuarioForm(UserChangeForm):
     class Meta:
         model = Perfil
-        fields = ("username","email","foto","telefono","experiencia_laboral","localidad")
+        fields = ("username","email","foto","telefono","experiencia_laboral","localidad","categoria")
     def __init__(self,*args, **kwargs):
         super(UpdateUsuarioForm, self).__init__(*args, **kwargs)
         localidad=forms.ModelChoiceField(queryset=Localidad.objects.all().order_by("localidad"))
         self.fields["localidad"]=localidad
-        experiencia_laboral=forms.CharField(widget=forms.Textarea(attrs={"placeholder":"Tu forma de trabajar en 200 caracteres"}))
+        experiencia_laboral=forms.CharField(required=False,widget=forms.Textarea(attrs={"placeholder":"Tu forma de trabajar en 200 caracteres"}))
         self.fields["experiencia_laboral"]=experiencia_laboral
 
 class TerminarInscripcionForm(forms.ModelForm):

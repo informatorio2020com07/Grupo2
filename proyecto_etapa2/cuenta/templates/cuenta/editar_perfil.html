@@ -54,6 +54,13 @@ Editar Perfil
             {{ form.experiencia_laboral.errors }}
           </p>
         </div>
+        <label id="label_titulo" for="id_titulo">Categoria</label>
+          {{ form.categoria }}
+         <div>
+          <p>
+            {{ form.categoria.errors }}
+          </p>
+        </div>
 
       {% endifequal %}
                 <input type="submit" value="Editar">

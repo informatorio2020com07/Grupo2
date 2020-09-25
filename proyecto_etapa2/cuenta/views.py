@@ -119,19 +119,26 @@ def cambiar_pass(request, id):
 def cargar_titulo(request,id):
     perfil = Perfil.objects.get(pk=id)
     if perfil == request.user and perfil.tipo_usuario=="trabajador":
-        if perfil.categoria.id==5:
-            form = TerminarInscripcionForm(categoria=perfil.categoria.id)
-        else:
-            form = TerminarInscripcionForm(categoria=perfil.categoria.id)
+        form = TerminarInscripcionForm(categoria=perfil.categoria.id)
         if request.method == "POST":
             form = TerminarInscripcionForm(data=request.POST,categoria=perfil.categoria.id)
+            print(form)
             if form.is_valid():
                 datos = form.cleaned_data
+                if datos["titulo_nuevo"]!="":
+                    bus_titu=Titulo.objects.filter(titulo__icontains=datos["titulo_nuevo"]).first()
+                    cat=bus_titu.categoria.id
+                else:
+                    cat=5
+
+                if perfil.categoria.id==5 and cat!=5 and cat:
+                    return render(request, "cuenta/cargar_titulo.html",{"form":form,"error":"La Profesion es de otra categoria, Usted debe cambiar de categoria"})
+                else:
+                    if perfil.categoria.id==5 and datos["titulo_nuevo"]!="" and bus_titu.categoria.id!=5 :
+                        titulo=Titulo.objects.create(titulo=datos["titulo_nuevo"],categoria_id=5)
+                        matricula_titulo.titulo_id=titulo.id
                 matricula_titulo=form.save(commit=False)
                 matricula_titulo.trabajador_id=perfil.id
-                if perfil.categoria.id==5 and datos["titulo_nuevo"]!="":
-                    titulo=Titulo.objects.create(titulo=datos["titulo_nuevo"],categoria_id=5)
-                    matricula_titulo.titulo_id=titulo.id
                 if datos["matricula"] == None:
                     matricula_titulo.matricula=""
                 try:
@@ -142,6 +149,7 @@ def cargar_titulo(request,id):
         return render(request, "cuenta/cargar_titulo.html",{"form":form})
     else:
         return redirect("index")
+
 
 @login_required
 def borrar_titulo(request,id):

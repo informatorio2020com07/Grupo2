@@ -12,25 +12,28 @@ Cargar Cuenta
                  {% csrf_token %} 
       <label for="id_username">Oficio o Profesión</label>
       {%ifequal request.user.categoria.id 5 %}
-      {{ form.titulo }}
-      <div>
-        <p>
-          {{ form.titulo.errors }}
-        </p>
-      </div>
-      {{ form.titulo_nuevo }}
-      <div>
-        <p>
-          {{ form.titulo_nuevo.errors }}
-        </p>
-      </div>
+        {{ form.titulo }}
+        <div>
+          <p>
+            {{ form.titulo.errors }}
+          </p>
+        </div>
+        {% if caso != "especial" %}
+        {{ form.titulo_nuevo }}
+        <div>
+          <p>
+            {{ form.titulo_nuevo.errors }}
+          </p>
+        </div>
+        {% endif %}
       {% else %}
-      {{ form.titulo }}
-      <div>
-        <p>
-          {{ form.titulo.errors }}
-        </p>
-      </div>
+
+        {{ form.titulo }}
+        <div>
+          <p>
+            {{ form.titulo.errors }}
+          </p>
+        </div>
        {% endifequal %}     
       <label for="id_email">Matricula (opcional)</label>
       {{ form.matricula }}

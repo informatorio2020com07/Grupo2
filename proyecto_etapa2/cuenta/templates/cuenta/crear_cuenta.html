@@ -84,14 +84,14 @@
               {{ form.telefono.errors }}
             </p>
           </div>
-          <label for="id_telefono">Facebook(opcional)</label>
+          <label for="id_facebook">Facebook(opcional)</label>
           {{form.facebook}}
           <div>
             <p>
               {{ form.facebook.errors }}
             </p>
           </div>
-          <label for="id_telefono">Instagram(opcional)</label>
+          <label for="id_instagram">Instagram(opcional)</label>
           {{form.instagram}}
           <div>
             <p>
@@ -107,14 +107,14 @@
           </div>
           
             {% ifequal pagina "trabajador" %}
-           <label for="id_categoria">Experiencia Laboral</label>
+           <label for="id_experiencia_laboral">Experiencia Laboral</label>
           {{form.experiencia_laboral}}
           <div>
             <p>
               {{ form.experiencia_laboral.errors }}
             </p>
           </div>
-          <label for="id_categoria">Categoria</label>
+          <label class="text-left" for="id_categoria">Categoria</label>
           {{form.categoria}}
           <div>
             <p>
@@ -144,3 +144,6 @@
 </div>
  {% endifequal %}
 {% endblock %}
+ {%block scripts%}
+ <script src="{% static 'js/crear_cuenta.js' %}"></script>
+  {%endblock%}

@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import login,logout,authenticate
-from .forms import NuevoUsuarioForm, UpdateUsuarioForm,TerminarInscripcionForm, ComentarioForm
+from .forms import NuevoUsuarioForm, UpdateUsuarioForm, TerminarInscripcionForm, ComentarioForm, Search_perfilForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
 from .models import (Perfil,Titulo,Categoria,
@@ -43,7 +43,6 @@ def nuevo_trabajador(request):
                     return redirect("cargar_titulo", user.id)
         return render(request, "cuenta/crear_cuenta.html",{"form":form,"pagina":"trabajador","categorias":categorias})
 
-
 def iniciar_sesion(request):
     form = AuthenticationForm()
     if request.method == "POST":
@@ -67,7 +66,6 @@ def ver_perfil(request,id):
     perfil = Perfil.objects.get(pk=id)
     form_comentario=ComentarioForm()
     comentarios = perfil.comentarios_de_trabajador.all().order_by("-fecha_creacion")
-    print(comentarios)
     ofertas=Oferta.objects.filter(oferente_id=id)
     recomendaciones=Recomendaciones.objects.filter(trabajador_id=id).count()
     matriculas = Matricula_Titulo.objects.filter(trabajador_id=id)
@@ -122,25 +120,35 @@ def cargar_titulo(request,id):
         form = TerminarInscripcionForm(categoria=perfil.categoria.id)
         if request.method == "POST":
             form = TerminarInscripcionForm(data=request.POST,categoria=perfil.categoria.id)
-            print(form)
             if form.is_valid():
                 datos = form.cleaned_data
+                #controla que no tenga nuevo titulo
                 if datos["titulo_nuevo"]!="":
                     bus_titu=Titulo.objects.filter(titulo__icontains=datos["titulo_nuevo"]).first()
-                    cat=bus_titu.categoria.id
+                    if bus_titu:
+                        cat=bus_titu.categoria.id
+                    else:
+                        bus_titu=0
+                        cat=5           
                 else:
                     cat=5
-
-                if perfil.categoria.id==5 and cat!=5 and cat:
-                    return render(request, "cuenta/cargar_titulo.html",{"form":form,"error":"La Profesion es de otra categoria, Usted debe cambiar de categoria"})
-                else:
-                    if perfil.categoria.id==5 and datos["titulo_nuevo"]!="" and bus_titu.categoria.id!=5 :
-                        titulo=Titulo.objects.create(titulo=datos["titulo_nuevo"],categoria_id=5)
-                        matricula_titulo.titulo_id=titulo.id
+                    bus_titu=0
+                #contrla que si hay nuevo titulo no sea de otra categoria o este cargado
+                if perfil.categoria.id==5 and cat!=5:
+                    error="La Profesion es de otra categoria, Usted debe cambiar de categoria "+bus_titu.categoria.nombre_cat
+                    return render(request, "cuenta/cargar_titulo.html",{"form":form,"error":error})
+                elif perfil.categoria.id==5 and cat==5 and bus_titu!=0:
+                    return render(request, "cuenta/cargar_titulo.html",{"form":form,"error":"La Profesion esta arriba"})
+                
                 matricula_titulo=form.save(commit=False)
+                #si el titulo es nuevo y no esta cargado lo crea
+                if perfil.categoria.id==5 and datos["titulo_nuevo"]!="" and bus_titu==0:
+                    titulo=Titulo.objects.create(titulo=datos["titulo_nuevo"],categoria_id=5)
+                    matricula_titulo.titulo_id=titulo.id
                 matricula_titulo.trabajador_id=perfil.id
                 if datos["matricula"] == None:
                     matricula_titulo.matricula=""
+                #controla que no tenga dos veces el mismo titulo
                 try:
                     matricula_titulo.save()
                 except IntegrityError as e:
@@ -186,14 +194,10 @@ def comentar(request,id):
     perfil = Perfil.objects.get(pk=id)
     if request.method == "POST":
         form = ComentarioForm(request.POST)
-        print(form.is_valid())
         if form.is_valid():
             comentario = form.save(commit=False)
             comentario.usuario_id = request.user.id
             comentario.com_trabajador_id = perfil.id
-            print (comentario.com_trabajador_id)
-            print (comentario.usuario_id)
-            print (comentario.texto)
             try:
                 comentario.save()
             except IntegrityError as e:
@@ -203,3 +207,22 @@ def comentar(request,id):
         return redirect("ver_perfil", perfil.id)
 
 
+def search_perfil(request):
+    if request.GET:
+        form = Search_perfilForm(request.GET)
+    else:
+        form = Search_perfilForm()
+    filtro_titulo = request.GET.get("titulo", None)
+    filtro_localidad = request.GET.get("localidad", None)
+    print(filtro_titulo)
+    print(filtro_localidad)
+    if filtro_titulo and filtro_localidad:
+        perfiles=Perfil.objects.filter(matricula_de_trabajador__titulo__id=filtro_titulo).filter(localidad=filtro_localidad).filter(tipo_usuario="trabajador")
+    elif filtro_titulo:
+        perfiles=Perfil.objects.filter(matricula_de_trabajador__titulo__id=filtro_titulo).filter(tipo_usuario="trabajador")
+    elif filtro_localidad:
+        perfiles=Perfil.objects.filter(localidad_id=filtro_localidad).filter(tipo_usuario="trabajador")
+    else:
+        perfiles=None
+
+    return render(request, "cuenta/search_perfil.html",{"form":form, "perfiles":perfiles})

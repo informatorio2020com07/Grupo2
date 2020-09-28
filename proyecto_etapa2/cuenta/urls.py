@@ -14,5 +14,5 @@ urlpatterns = [
     path("perfil/si_recomiendo/<int:id>", views.si_recomiendo, name="si_recomiendo"),
     path("perfil/no_recomiendo/<int:id>", views.no_recomiendo, name="no_recomiendo"),
     path("perfil/<int:id>/comentar", views.comentar, name="comentar"),
-    
+    path("search_perfil/", views.search_perfil, name="search_perfil"),
     ]

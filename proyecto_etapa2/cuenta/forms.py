@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from .models import Perfil,Titulo,Localidad,Matricula_Titulo,Categoria,Comentario
 
 class NuevoUsuarioForm(UserCreationForm,forms.Form):
-    localidad=forms.ModelChoiceField(queryset=Localidad.objects.all().order_by("localidad"))
+    localidad=forms.ModelChoiceField(queryset=Localidad.objects.all().order_by("provincia__provincia","localidad"))
     username=forms.CharField(initial="", widget=forms.TextInput(attrs={"placeholder":"Nombre de usuario"}))
     dni=forms.IntegerField(max_value=99999999)
     first_name=forms.CharField(widget=forms.TextInput(attrs={"placeholder":"Nombre"}))
@@ -28,7 +28,7 @@ class NuevoUsuarioForm(UserCreationForm,forms.Form):
 class UpdateUsuarioForm(UserChangeForm):
     class Meta:
         model = Perfil
-        fields = ("username","email","foto","telefono","experiencia_laboral","localidad","categoria")
+        fields = ("username","email","foto","telefono","experiencia_laboral","localidad","categoria","facebook","instagram")
     def __init__(self,*args, **kwargs):
         super(UpdateUsuarioForm, self).__init__(*args, **kwargs)
         localidad=forms.ModelChoiceField(queryset=Localidad.objects.all().order_by("localidad"))
@@ -55,3 +55,15 @@ class ComentarioForm(forms.ModelForm):
 class Recuperar_passForm(forms.ModelForm):
     class Meta:
         fields= ("username","dni", "email", "nacimiento")
+
+class Search_perfilForm(forms.Form):
+    class Meta:
+        model = Titulo
+        fields =("titulo","localidad")
+    def __init__(self, *args, **kwargs):
+        super(Search_perfilForm, self).__init__(*args, **kwargs)
+        titulo = forms.ModelChoiceField(queryset=Titulo.objects.all().order_by("titulo"), required = False)
+        self.fields["titulo"]= titulo
+        localidad=forms.ModelChoiceField(queryset=Localidad.objects.all().order_by("provincia__provincia","localidad"),required = False)
+        self.fields["localidad"]= localidad
+

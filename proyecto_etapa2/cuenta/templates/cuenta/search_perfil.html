@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block titulo%}
+ Inicio
+{% endblock %}
+{%block contenido%}
+<main role="main">
+    <div class="contenedor-form">
+    <div class="formulario"> 
+        <form method="GET">
+            <label for="{{ search_form.titulo.id_for_label }}">Buscar Profesional:</label>
+<div class="row">
+<div class="col">
+            {{ form.titulo }}
+</div>
+<div class="col">
+            {{ form.localidad }}
+        </div>
+       
+        <div class="col">
+            <button class="btn waves-effect waves-light" type="submit">
+                <i class="fa fa-search" aria-hidden="true">Buscar</i>
+            </button>
+</div>
+</div>         
+        </form>
+    </div>
+</div>
+{% if perfiles %}
+    <div id="contenedor_perfil" class="container">
+            <div class="container m-2">
+                <div class="row">
+                    <ul class="collection">
+                        {% for perfil in perfiles %} 
+                            <li class="">
+                                <a href="{% url 'ver_perfil' perfil.id %}">  
+                                    {% if perfil.foto %}
+                                        <img src="{{ perfil.foto.url }}" alt="foto de perfil" width="30" height="30" class="float-left rounded-circle mr-2">
+                                    {% else %}
+                                        <img src="{% static 'img/pordefecto.jpg' %}"  width="30" height="30" class="float-left rounded-circle mr-2" alt="archivo por defecto">
+                                    {% endif %}
+                                 </a>    
+                                <a href="{% url 'ver_perfil' perfil.id %}">
+                                <span class="title">{{perfil.username}}:</span>
+                                </a>
+                                <p class="text-align text-white"> 
+                                    {{perfil.experiencia_laboral}}
+                                </p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+{% endif %}
+
+</main>
+
+{% endblock %}

@@ -2,6 +2,7 @@ from django import forms
 from .models import Oferta
 
 class OfertaForm(forms.ModelForm):
+    imagen=forms.ImageField(required=False)
     class Meta:
         model = Oferta
         fields = ("titulo", "descripcion","imagen","fecha_caducacion")

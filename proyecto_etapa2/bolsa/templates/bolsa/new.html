@@ -33,11 +33,14 @@
             <div>
           <p>
             {{ form.fecha_caducacion.errors }}
+            {% if error_fecha %}
+              {{error_fecha}}
+            {% endif %}
           </p>
         </div>
         
       {% ifequal editar "editar" %}
-      <input type="submit" value="Editar Oferta">
+      <input type="submit" value="Confirmar Cambios">
     {% else %}
       <input type="submit" value="Crear Oferta">
     {% endifequal %}

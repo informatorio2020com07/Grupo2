@@ -153,6 +153,12 @@ ul#id_titulo li label{
 #foto-clear_id + label{
     display:none;
 }
+#imagen-clear_id{
+    display:none;
+}
+#imagen-clear_id + label{
+    display:none;
+}
 
 #botones_perfil{
     display:block;

@@ -3,6 +3,7 @@ from .models import Oferta
 from cuenta.models import Categoria
 from .forms import OfertaForm,SearchForm
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
 # Create your views here.
 
 
@@ -37,11 +38,17 @@ def new_oferta(request):
             if request.method == "POST":
                 form= OfertaForm(request.POST,request.FILES)        
                 if form.is_valid():
-                    oferta=form.save(commit=False)
-                    oferta.oferente = request.user  
-                    oferta.categoria_id=request.user.categoria.id
-                    oferta.save()
-                    return redirect("oferta", oferta.id)
+                    datos=form.cleaned_data
+                    b=datetime.now()
+                    if datos["fecha_caducacion"] > b.date():
+                        oferta=form.save(commit=False)
+                        oferta.oferente = request.user  
+                        oferta.categoria_id=request.user.categoria.id
+                        oferta.save()
+                        return redirect("oferta", oferta.id)
+                    else:
+                        contexto={"form":form,"error_fecha":"La fecha es vieja"}
+                        return render(request, "bolsa/new.html",contexto)        
                 else:
                     contexto={"form":form,}
                     return render(request, "bolsa/new.html",contexto)
@@ -90,6 +97,7 @@ def borrar_oferta(request,id):
             oferta.delete()
             return redirect("index")
 
+
 def editar_oferta(request, id):
     oferta = Oferta.objects.get(pk = id)
     if oferta.oferente == request.user:
@@ -102,12 +110,15 @@ def editar_oferta(request, id):
             return render(request, "bolsa/new.html", contexto)
         elif request.method == "POST":
             form = OfertaForm(request.POST,request.FILES, instance = oferta)
-            print(form.is_valid())
-            print(form)
             if form.is_valid():
-                print(form.cleaned_data)
-                ofer = form.save()
-                return redirect("oferta", ofer.id)
+                datos=form.cleaned_data
+                b=datetime.now()
+                if datos["fecha_caducacion"] > b.date():
+                    ofer = form.save()
+                    return redirect("oferta", ofer.id)
+                else:
+                    contexto={"form":form,"error_fecha":"La fecha es vieja"}
+                    return render(request, "bolsa/new.html",contexto)    
             else:
                 contexto = {
                 "form" : form,

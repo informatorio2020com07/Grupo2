@@ -15,7 +15,7 @@
                     {%else%}
                         <img src="{% static 'img/pordefecto.jpg' %}" width="60" height="60" class="float-left rounded-circle" alt="logo">
                     {% endif %}
-                    <h2 class="title">{{perfil.tipo_usuario}}: {{perfil.username}}</h2>
+                    <h2 class="title">{{perfil.tipo_usuario|capfirst}}: {{perfil.username}}</h2>
                 </div>
                 <div class="col-md-4 mt-4">
                     {% ifequal request.user perfil %}
@@ -49,9 +49,9 @@
                             <div class="row">
                                 {% for matricula in matriculas%}
                                     <div class="col-md-4 m-2">
-                                    <h6 class="text-white">{{matricula.titulo}}</h6>
+                                    <h5 class="text-white">{{matricula.titulo}}</h6>
                                     {% if matricula.matricula != "" %}
-                                    <h6 class="text-white">Matricula:{{matricula}}</h6>
+                                    <h5 class="text-white">Matricula:{{matricula}}</h6>
                                     {% endif %}
                                     {% ifequal request.user perfil %}    
                                         <a href="{% url 'borrar_titulo'  matricula.id %}" class="btn btn-sm btn-outline-secondary text-white"><i class="fa fa-trash-o" aria-hidden="true"><strong> Borrar</strong></i></a>
@@ -88,9 +88,9 @@
 
                 <div class="col-md-4">
                     {% if perfil.tipo_usuario == "trabajador" %}
-                    <h7>Contancta a tu profesional: </h7>
+                    <h6>Contacta a tu profesional: </h6>
                     {% else %}
-                    <h7 class="text-center">Contancta:</h7>
+                    <h6 class="text-center">Contacta:</h6>
                     {% endif %}
                     <div class="card-body">
                          <a href="http://www.facebook.com/{{perfil.facebook}}" target="blank"><img width="30" height="30" class="float-left rounded-circle mr-2" src="{% static 'img/facebook.png' %}"></a>

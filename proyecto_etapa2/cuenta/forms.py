@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.contrib.auth.models import User
 from .models import Perfil,Titulo,Localidad,Matricula_Titulo,Categoria,Comentario
-from .validators import validar_num
+
 
 class NuevoUsuarioForm(UserCreationForm,forms.Form):
     localidad=forms.ModelChoiceField(queryset=Localidad.objects.all().order_by("provincia__provincia","localidad"))

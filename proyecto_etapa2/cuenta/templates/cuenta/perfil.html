@@ -104,7 +104,7 @@
                     <div class="btn-group">
                         {% ifequal request.user perfil %}
                             <a href="{% url 'editar_perfil' perfil.id %}" class="btn btn-md btn-outline-secondary text-white">Editar</a>
-                             <a href="{% url 'dar_baja' perfil.id %}" class="btn btn-sm btn-outline-secondary text-white"><i class="fa fa-trash-o" aria-hidden="true"><strong> Borrar Perfil</strong></i></a>
+                             <a href="{% url 'dar_baja' perfil.id %}" class="btn btn-md btn-outline-secondary text-white"><i class="fa fa-trash-o" aria-hidden="true">Borrar Perfil</i></a>
                             {% ifequal request.user.tipo_usuario "trabajador" %}
                                 <a href="{% url 'cargar_titulo' perfil.id %}" class="btn btn-md btn-outline-secondary text-white">Profesión</a>
                             {% endifequal %}

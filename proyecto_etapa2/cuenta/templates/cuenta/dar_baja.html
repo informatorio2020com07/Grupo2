@@ -16,15 +16,7 @@
                         <img src="{% static 'img/pordefecto.jpg' %}" width="60" height="60" class="float-left rounded-circle" alt="logo">
                     {% endif %}
                     <h2 class="title">{{perfil.tipo_usuario|capfirst}}: {{perfil.username}}</h2>
-                </div>
-                <div class="col-md-4 mt-4">
-                    {% ifequal request.user perfil %}
-                        {% ifequal request.user.tipo_usuario "trabajador" %}
-                        <a href="{% url 'new_oferta' %}" class="btn btn-lg btn-outline-secondary text-white"><strong><i class="fa fa-address-card" aria-hidden="true"></i> Oferta tu trabajo</strong></a>
-                        {% endifequal %}
-                    {% endifequal %}
-                </div>
-                
+                </div> 
             </div>
 
         
@@ -41,47 +33,14 @@
                         <h5 class="text-left">Localidad : {{perfil.localidad}}</h5>      
                     </div>
                 </div>
-            {% if perfil.tipo_usuario == "trabajador" %}
-                <div class="col-md-8 ml-auto">
-                    <div class="card-body"> 
-                        <h4 class="text-white">Profesión:</h4>
-                        <div class="container">
-                            <div class="row">
-                                {% for matricula in matriculas %}
-                                    <div class="col-md-4 m-2">
-                                    <h5 class="text-white">{{matricula.titulo}}</h5>
-                                    {% if matricula.matricula != "" %}
-                                    <h5 class="text-white">Matricula:{{matricula}}</h5>
-                                    <h5 class="text-white">{{matricula.titulo}}</h5>
-                                    {% endif %}
-                                    {% ifequal request.user perfil %}    
-                                        <a href="{% url 'borrar_titulo'  matricula.id %}" class="btn btn-sm btn-outline-secondary text-white"><i class="fa fa-trash-o" aria-hidden="true"><strong> Borrar</strong></i></a>
-                                    {% endifequal %} 
-                                    </div>
-                                {%endfor%}
-                            </div>
-                        </div>
-                    </div> 
-                </div>  
 
-                    
-                </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4>Experiencia Laboral:</h4>
-                        </div>
-                        <div class="col-md-12">
-                            <p id="descripcion_oferta" class="card-text text-white text-align">{{perfil.experiencia_laboral}}</p>
-                        </div>
-                    </div>
-                </div>
-           {% endif %} 
             {% ifequal request.user perfil %}
                 <div class="contenedor-form">
                     <br>
                      <div class="formulario">
-                        <form action="dar_baja_definitiva perfil.id">
-                            <input type="submit">Desea Abandonar la Comunidad, Sabemos donde vivis
+                        <form method="POST" action="{% url 'dar_baja_definitiva' perfil.id %}">
+                            {% csrf_token %}
+                            <input type="submit" value="Borrar Perfil">Desea Abandonar la Comunidad
                         </form>
                     </div>
                  </div>

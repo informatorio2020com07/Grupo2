@@ -240,6 +240,9 @@ def dar_baja(request,id):
 def dar_baja_definitiva(request,id):
     perfil = Perfil.objects.get(pk=id)
     if perfil == request.user:
+        print("entro")
         if request.method == "POST":
+            print("entro aca")
             perfil.delete()
             return redirect("index")
+    return render(request, "cuenta/dar_baja.html",{"perfil":perfil})

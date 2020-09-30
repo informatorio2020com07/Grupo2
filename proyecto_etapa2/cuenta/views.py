@@ -129,7 +129,7 @@ def cargar_titulo(request,id):
                         cat=bus_titu.categoria.id
                     else:
                         bus_titu=0
-                        cat=5           
+                        cat=5
                 else:
                     cat=5
                     bus_titu=0

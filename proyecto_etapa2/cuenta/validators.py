@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 
-validar_num(value):
+def validar_num(value):
     if value.isdigit():
         return value
     else:

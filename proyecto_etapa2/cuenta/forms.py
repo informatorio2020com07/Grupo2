@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from django.contrib.auth.models import User
 from .models import Perfil,Titulo,Localidad,Matricula_Titulo,Categoria,Comentario
+from .validators import validar_num
 
 class NuevoUsuarioForm(UserCreationForm,forms.Form):
     localidad=forms.ModelChoiceField(queryset=Localidad.objects.all().order_by("provincia__provincia","localidad"))
@@ -35,6 +36,10 @@ class UpdateUsuarioForm(UserChangeForm):
         self.fields["localidad"]=localidad
         experiencia_laboral=forms.CharField(required=False,widget=forms.Textarea(attrs={"placeholder":"Tu forma de trabajar en 200 caracteres"}))
         self.fields["experiencia_laboral"]=experiencia_laboral
+        facebook=forms.CharField(required=False)
+        self.fields["facebook"]=facebook
+        instagram=forms.CharField(required=False)
+        self.fields["instagram"]=instagram
 
 class TerminarInscripcionForm(forms.ModelForm):
     titulo_nuevo=forms.CharField(required=False, widget=forms.TextInput(attrs={"placeholder":"Ingrese su actividad"}))

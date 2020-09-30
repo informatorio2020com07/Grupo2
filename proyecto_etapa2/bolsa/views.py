@@ -40,7 +40,8 @@ def new_oferta(request):
                 if form.is_valid():
                     datos=form.cleaned_data
                     b=datetime.now()
-                    if datos["fecha_caducacion"] > b.date():
+                    
+                    if (datos["fecha_caducacion"] is None) or (datos["fecha_caducacion"] > b.date()):
                         oferta=form.save(commit=False)
                         oferta.oferente = request.user  
                         oferta.categoria_id=request.user.categoria.id

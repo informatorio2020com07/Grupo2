@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from .validators import validar_num
 # Create your models here.
 
 class Provincia(models.Model):

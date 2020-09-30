@@ -226,3 +226,20 @@ def search_perfil(request):
         perfiles=None
 
     return render(request, "cuenta/search_perfil.html",{"form":form, "perfiles":perfiles})
+
+
+@login_required
+def dar_baja(request,id):
+    perfil = Perfil.objects.get(pk=id)
+    if perfil == request.user:
+        return render(request, "cuenta/dar_baja.html",{"perfil":perfil})
+
+
+
+@login_required
+def dar_baja_definitiva(request,id):
+    perfil = Perfil.objects.get(pk=id)
+    if perfil == request.user:
+        if request.method == "POST":
+            perfil.delete()
+            return redirect("index")

@@ -104,6 +104,7 @@
                     <div class="btn-group">
                         {% ifequal request.user perfil %}
                             <a href="{% url 'editar_perfil' perfil.id %}" class="btn btn-md btn-outline-secondary text-white">Editar</a>
+                             <a href="{% url 'dar_baja' perfil.id %}" class="btn btn-sm btn-outline-secondary text-white"><i class="fa fa-trash-o" aria-hidden="true"><strong> Borrar Perfil</strong></i></a>
                             {% ifequal request.user.tipo_usuario "trabajador" %}
                                 <a href="{% url 'cargar_titulo' perfil.id %}" class="btn btn-md btn-outline-secondary text-white">Profesión</a>
                             {% endifequal %}
@@ -141,22 +142,28 @@
                     <ul class="collection">
                         {% for comentario in comentarios %} 
                             <li class="">
+                                {% if comentario.usuario.id %}
                                 <a href="{% url 'ver_perfil' comentario.usuario.id %}">  
                                     {% if comentario.usuario.foto %}
                                         <img src="{{ comentario.usuario.foto.url }}" alt="foto de perfil" width="30" height="30" class="float-left rounded-circle mr-2">
                                     {% else %}
                                         <img src="{% static 'img/pordefecto.jpg' %}"  width="30" height="30" class="float-left rounded-circle mr-2" alt="archivo por defecto">
                                     {% endif %}
-                                 </a>    
+                                 </a>   
                                 <a href="{% url 'ver_perfil' comentario.usuario.id %}">
                                 <span class="title">{{comentario.usuario.username}}:</span>
                                 </a>
+                                {% else %}
+                                <img src="{% static 'img/pordefecto.jpg' %}" width="30" height="30" class="float-left rounded-circle mr-2" alt="logo">
+                                <h6>Cuenta Borrada</h6>
+                                {% endif %}
                                 <p class="text-align text-white"> 
                                     {{comentario.texto}}
                                 </p>
                                 <p>
                                     {{comentario.fecha_creacion}}
                                 </p>
+                                
                             </li>
                         {% endfor%}
                     </ul>

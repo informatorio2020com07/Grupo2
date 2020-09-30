@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block titulo %}
+    Perfil de {{ perfil.username }}
+{% endblock %}
+{% block contenido%}
+<div class="row justify-content-center">
+    <div id="contenedor_perfil" class="container m-2">
+        <div class="container m-2">
+            <div class="row m-2">
+                <div class="col-md-8">
+                    {% if request.user.foto %}
+                        <img src=  
+                    "{{perfil.foto.url}}" width="60" height="60" class="float-left rounded-circle mr-2" alt="foto de perfil">
+                    {%else%}
+                        <img src="{% static 'img/pordefecto.jpg' %}" width="60" height="60" class="float-left rounded-circle" alt="logo">
+                    {% endif %}
+                    <h2 class="title">{{perfil.tipo_usuario|capfirst}}: {{perfil.username}}</h2>
+                </div>
+                <div class="col-md-4 mt-4">
+                    {% ifequal request.user perfil %}
+                        {% ifequal request.user.tipo_usuario "trabajador" %}
+                        <a href="{% url 'new_oferta' %}" class="btn btn-lg btn-outline-secondary text-white"><strong><i class="fa fa-address-card" aria-hidden="true"></i> Oferta tu trabajo</strong></a>
+                        {% endifequal %}
+                    {% endifequal %}
+                </div>
+                
+            </div>
+
+        
+            <div class="row">
+                <div class="">
+                    <div class="card-body">
+                        <h4 class="text-left">Datos Personales:</h4>
+                        <h5 class="text-left">Nombre: {{perfil.first_name}}</h5>
+                        <br>
+                        <h5 class="text-left">Apellido: {{perfil.last_name}}</h5>
+                        <br>
+                        <h5 class="text-left">Telefono: {{perfil.telefono}}</h5>
+                        <br>
+                        <h5 class="text-left">Localidad : {{perfil.localidad}}</h5>      
+                    </div>
+                </div>
+            {% if perfil.tipo_usuario == "trabajador" %}
+                <div class="col-md-8 ml-auto">
+                    <div class="card-body"> 
+                        <h4 class="text-white">Profesión:</h4>
+                        <div class="container">
+                            <div class="row">
+                                {% for matricula in matriculas %}
+                                    <div class="col-md-4 m-2">
+                                    <h5 class="text-white">{{matricula.titulo}}</h5>
+                                    {% if matricula.matricula != "" %}
+                                    <h5 class="text-white">Matricula:{{matricula}}</h5>
+                                    <h5 class="text-white">{{matricula.titulo}}</h5>
+                                    {% endif %}
+                                    {% ifequal request.user perfil %}    
+                                        <a href="{% url 'borrar_titulo'  matricula.id %}" class="btn btn-sm btn-outline-secondary text-white"><i class="fa fa-trash-o" aria-hidden="true"><strong> Borrar</strong></i></a>
+                                    {% endifequal %} 
+                                    </div>
+                                {%endfor%}
+                            </div>
+                        </div>
+                    </div> 
+                </div>  
+
+                    
+                </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Experiencia Laboral:</h4>
+                        </div>
+                        <div class="col-md-12">
+                            <p id="descripcion_oferta" class="card-text text-white text-align">{{perfil.experiencia_laboral}}</p>
+                        </div>
+                    </div>
+                </div>
+           {% endif %} 
+            {% ifequal request.user perfil %}
+                <div class="contenedor-form">
+                    <br>
+                     <div class="formulario">
+                        <form action="dar_baja_definitiva perfil.id">
+                            <input type="submit">Desea Abandonar la Comunidad, Sabemos donde vivis
+                        </form>
+                    </div>
+                 </div>
+
+            {% endifequal %}
+        </div>
+        <br>
+    </div>
+{% endblock %}

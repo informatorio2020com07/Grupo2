@@ -27,10 +27,10 @@ class Titulo(models.Model):
 
 class Perfil(AbstractUser):
     tipo_usuario=models.CharField(max_length=20,default="cliente")
-    dni=models.CharField(max_length=10,unique=True,default="")
+    dni=models.CharField(max_length=10,unique=True,default="",validators=[validar_num])
     nacimiento = models.DateField(null = True)
     foto = models.ImageField(upload_to = "foto_perfil", null = True, blank = True)
-    telefono = models.CharField(max_length = 20)
+    telefono = models.CharField(max_length = 20,validators=[validar_num])
     localidad = models.ForeignKey(Localidad, on_delete = models.CASCADE, null=True, related_name="personas_localidad") 
     experiencia_laboral = models.CharField(max_length = 200,null = True, blank = True)
     categoria = models.ForeignKey(Categoria, on_delete = models.CASCADE, default=None, null=True, related_name="perfil_de_categoria")

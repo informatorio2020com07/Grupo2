@@ -49,9 +49,9 @@
                             <div class="row">
                                 {% for matricula in matriculas%}
                                     <div class="col-md-4 m-2">
-                                    <h6 class="text-white">{{matricula.titulo}}</h6>
+                                    <h5 class="text-white">{{matricula.titulo}}</h5>
                                     {% if matricula.matricula != "" %}
-                                    <h6 class="text-white">Matricula:{{matricula}}</h6>
+                                    <h5 class="text-white">Matricula:{{matricula}}</h5>
                                     {% endif %}
                                     {% ifequal request.user perfil %}    
                                         <a href="{% url 'borrar_titulo'  matricula.id %}" class="btn btn-sm btn-outline-secondary text-white"><i class="fa fa-trash-o" aria-hidden="true"><strong> Borrar</strong></i></a>

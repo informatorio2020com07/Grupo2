@@ -33,8 +33,8 @@ def index(request):
 
 @login_required
 def new_oferta(request):
-    if request.user.tipo_usuario=="trabajador":
-        if request.user.matricula_de_trabajador.all().count()>0:
+    if request.user.tipo_usuario == "trabajador":
+        if request.user.matricula_de_trabajador.all().count() > 0:
             if request.method == "POST":
                 form= OfertaForm(request.POST,request.FILES)        
                 if form.is_valid():

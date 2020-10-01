@@ -48,7 +48,8 @@ class TerminarInscripcionForm(forms.ModelForm):
         fields=("matricula","titulo", "titulo_nuevo")
     def __init__(self,categoria, *args, **kwargs):
         super(TerminarInscripcionForm, self).__init__(*args, **kwargs)
-        titulo=forms.ModelChoiceField(queryset = Titulo.objects.filter(categoria_id = categoria),widget=forms.RadioSelect,required = False)
+        titulo=forms.ModelChoiceField(queryset = Titulo.objects.filter(categoria_id = categoria).
+        order_by("categoria", "titulo"),widget=forms.RadioSelect,required = False)
         self.fields["titulo"]=titulo
 
 class ComentarioForm(forms.ModelForm):

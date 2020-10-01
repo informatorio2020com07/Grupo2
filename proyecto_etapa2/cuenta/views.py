@@ -122,38 +122,41 @@ def cargar_titulo(request,id):
             form = TerminarInscripcionForm(data=request.POST,categoria=perfil.categoria.id)
             if form.is_valid():
                 datos = form.cleaned_data
-                #controla que no tenga nuevo titulo
-                if datos["titulo_nuevo"]!="":
-                    bus_titu=Titulo.objects.filter(titulo__icontains=datos["titulo_nuevo"]).first()
-                    if bus_titu:
-                        cat=bus_titu.categoria.id
+                if datos["titulo_nuevo"]!="" or datos["titulo"]:
+                    #controla que no tenga nuevo titulo
+                    if datos["titulo_nuevo"]!="":
+                        bus_titu=Titulo.objects.filter(titulo__icontains=datos["titulo_nuevo"]).first()
+                        if bus_titu:
+                            cat=bus_titu.categoria.id
+                        else:
+                            bus_titu=0
+                            cat=5
                     else:
-                        bus_titu=0
                         cat=5
-                else:
-                    cat=5
-                    bus_titu=0
-                #contrla que si hay nuevo titulo no sea de otra categoria o este cargado
-                if perfil.categoria.id==5 and cat!=5:
-                    error="La Profesion es de otra categoria, Usted debe cambiar de categoria "+bus_titu.categoria.nombre_cat
-                    return render(request, "cuenta/cargar_titulo.html",{"form":form,"error":error})
-                elif perfil.categoria.id==5 and cat==5 and bus_titu!=0:
-                    return render(request, "cuenta/cargar_titulo.html",{"form":form,"error":"La Profesion esta arriba"})
-                
-                matricula_titulo=form.save(commit=False)
-                #si el titulo es nuevo y no esta cargado lo crea
-                if perfil.categoria.id==5 and datos["titulo_nuevo"]!="" and bus_titu==0:
-                    titulo=Titulo.objects.create(titulo=datos["titulo_nuevo"],categoria_id=5)
-                    matricula_titulo.titulo_id=titulo.id
-                matricula_titulo.trabajador_id=perfil.id
-                if datos["matricula"] == None:
-                    matricula_titulo.matricula=""
-                #controla que no tenga dos veces el mismo titulo
-                try:
-                    matricula_titulo.save()
-                except IntegrityError as e:
-                    return render(request, "cuenta/cargar_titulo.html",{"form":form,"error":"Usted ya posee ese titulo si desea modificarlo borrelo"})
-                return redirect("ver_perfil", perfil.id)
+                        bus_titu=0
+                    print(bus_titu)
+                    print(cat)
+                    #contrala que si hay nuevo titulo no sea de otra categoria o este cargado
+                    if perfil.categoria.id==5 and cat!=5:
+                        error="La Profesion es de otra categoria, Usted debe cambiar de categoria "+bus_titu.categoria.nombre_cat
+                        return render(request, "cuenta/cargar_titulo.html",{"form":form,"error":error})
+                    elif perfil.categoria.id==5 and cat==5 and bus_titu!=0:
+                        return render(request, "cuenta/cargar_titulo.html",{"form":form,"error":"La Profesion esta arriba"})
+                    
+                    matricula_titulo=form.save(commit=False)
+                    #si el titulo es nuevo y no esta cargado lo crea
+                    if perfil.categoria.id==5 and datos["titulo_nuevo"]!="" and bus_titu==0:
+                        titulo=Titulo.objects.create(titulo=datos["titulo_nuevo"],categoria_id=5)
+                        matricula_titulo.titulo_id=titulo.id
+                    matricula_titulo.trabajador_id=perfil.id
+                    if datos["matricula"] == None:
+                        matricula_titulo.matricula=""
+                    #controla que no tenga dos veces el mismo titulo
+                    try:
+                        matricula_titulo.save()
+                    except IntegrityError as e:
+                        return render(request, "cuenta/cargar_titulo.html",{"form":form,"error":"Usted ya posee ese titulo si desea modificarlo borrelo"})
+                    return redirect("ver_perfil", perfil.id)
         return render(request, "cuenta/cargar_titulo.html",{"form":form})
     else:
         return redirect("index")

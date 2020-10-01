@@ -8,14 +8,13 @@
       {% if oferta.imagen%}
       <img class="bd-placeholder-img card-img-top" width="100%" height="225" src=  
       "{{oferta.imagen.url}}" alt="imagen de oferta">
-      {% elif request.user.foto %}
+      {% elif oferta.oferente.foto %}
        <img class="bd-placeholder-img card-img-top" width="100%" height="225" src=  
       "{{oferta.oferente.foto.url}}" alt="imagen usuario">
       {% else %}
        <img class="bd-placeholder-img card-img-top" width="100%" height="225" src=  
       "{% static 'img/pordefecto.jpg' %}" alt="imagen por defecto">
       {% endif %} 
-
     </a>
     <div class="card-body">
       <p class="card-text text-white">{{oferta.descripcion | truncatechars:40}}</p>

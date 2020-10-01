@@ -17,4 +17,5 @@ urlpatterns = [
     path("search_perfil/", views.search_perfil, name="search_perfil"),
     path("perfil/dar_baja/<int:id>", views.dar_baja, name="dar_baja"),
     path("perfil/dar_baja_definitiva/<int:id>", views.dar_baja_definitiva, name="dar_baja_definitiva"),
+    path("ayuda", views.ayuda, name="ayuda"),
     ]

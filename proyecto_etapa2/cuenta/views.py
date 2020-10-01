@@ -4,7 +4,7 @@ from .forms import NuevoUsuarioForm, UpdateUsuarioForm, TerminarInscripcionForm,
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
 from .models import (Perfil,Titulo,Categoria,
-Matricula_Titulo,Recomendaciones,Comentario)
+Matricula_Titulo,Recomendaciones,Comentario, Que_hacemos)
 from bolsa.models import Oferta
 from django.db import IntegrityError
 from bolsa.views import index
@@ -249,3 +249,7 @@ def dar_baja_definitiva(request,id):
             perfil.delete()
             return redirect("index")
     return render(request, "cuenta/dar_baja.html",{"perfil":perfil})
+
+def ayuda(request):
+    contenido=Que_hacemos.objects.first()
+    return render(request, "cuenta/que_hacemos.html",{"contenido":contenido})

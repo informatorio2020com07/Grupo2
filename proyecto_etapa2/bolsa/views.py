@@ -114,12 +114,17 @@ def editar_oferta(request, id):
             if form.is_valid():
                 datos=form.cleaned_data
                 b=datetime.now()
-                if datos["fecha_caducacion"] > b.date():
+                if datos["fecha_caducacion"]:
+                    if datos["fecha_caducacion"] > b.date():
+                        ofer = form.save()
+                        return redirect("oferta", ofer.id)
+                    else:
+                        contexto={"form":form,"error_fecha":"La fecha es vieja"}
+                        return render(request, "bolsa/new.html",contexto)
+                else:
                     ofer = form.save()
                     return redirect("oferta", ofer.id)
-                else:
-                    contexto={"form":form,"error_fecha":"La fecha es vieja"}
-                    return render(request, "bolsa/new.html",contexto)    
+                    
             else:
                 contexto = {
                 "form" : form,

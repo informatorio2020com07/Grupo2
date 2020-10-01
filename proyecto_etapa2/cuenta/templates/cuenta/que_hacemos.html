@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block titulo %}
+    Ayuda
+{% endblock %}
+{% block contenido%}
+<div class="row justify-content-center">
+    <div id="contenedor_perfil" class="container m-2">
+        <h2 class="text-white text-center">¿Que es?</h2>
+        <h3 class="text-white text-center">{{contenido.que_es}}</h3>
+        <br>
+        <br>
+        <h2 class="text-white text-center">¿Que permite?</h2>
+        <h3 class="text-white text-center">{{contenido.que_permite}}</h3>
+        <br>
+        <br>
+        <h2 class="text-white text-center">Te ofrecemos:</h2>
+        <h3 class="text-white text-center">{{contenido.porque_nosotros}}</h3>
+    </div>
+</div> 
+{% endblock %}

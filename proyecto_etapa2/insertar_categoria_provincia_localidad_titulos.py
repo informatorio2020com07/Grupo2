@@ -87,6 +87,12 @@ for x in localidades:
     reg=(localidades[x],1)
     cursor.execute(query,reg)
 
+reg=("Es una vidriera de trabajadores donde poden ofercer sus servicios","Permitimos que el cliente y el trabajador se encuentren mediante las ofertas o perfiles de los trabajadores","Un lugar donde encontras a ese tecnico o profesional que necesitas de una manera rapida, sencilla y con recomendaciones de los clientes")
+
+query="INSERT INTO cuenta_que_hacemos(que_es,que_permite,porque_nosotros) values(?,?,?)"
+
+cursor.execute(query,reg)
+
 con.commit()
 cursor.close()
 con.close()

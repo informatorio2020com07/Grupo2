@@ -65,4 +65,9 @@ class Recomendaciones(models.Model):
     def __str__(self):
         return self.recomendaciones
 
+class Que_hacemos(models.Model):
+    que_es = models.TextField(max_length=300,default="")
+    que_permite = models.TextField(max_length=300,default="")
+    porque_nosotros = models.TextField(max_length=300,default="")
+
 
